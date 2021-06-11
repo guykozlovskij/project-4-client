@@ -1,0 +1,13 @@
+{
+  "python.pythonPath": "/usr/bin/python3",
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#094c99",
+    "titleBar.activeBackground": "#094c99",
+    "titleBar.inactiveBackground": "#094c99",
+    "statusBar.foreground": "#000",
+    "titleBar.inactiveForeground": "#000",
+    "titleBar.activeForeground": "#000",
+  },
+  "window.title": "Project 4 FRONTEND",
+  "python.linting.pylintEnabled": true
+}
