@@ -1,13 +1,12 @@
 import React from 'react'
-import * as Tone from 'tone'
-import Grid from './components/Grid'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Login from './components/auth/Login'
+import Register from './components/auth/Register'
+import Home from './components/common/Home'
+import Nav from './components/common/Nav'
+import MakeSong from './components/MakeSong'
 
 function App() {
-  const synth = new Tone.Synth().toDestination()
-
-  const handleClick = () => {
-    synth.triggerAttackRelease('C4', '8n')
-  }
   // React.useEffect(() => {
   //   const getData = async () => {
   //     const res = await fetch('/api/endpoint') // * <-- replace with your endpoint
@@ -18,11 +17,15 @@ function App() {
   // })
 
   return (
-    <>
-      <h1>Hello World</h1>
-      <button onClick={handleClick}>Play</button>
-      <Grid />
-    </>
+    <Router>
+      <Nav />
+      <Switch>
+        <Route exact path='/' component={Home}/>
+        <Route path='/login' component={Login}/>
+        <Route path='/register' component={Register}/>
+        <Route path='/make-song' component={MakeSong}/>
+      </Switch>
+    </Router>
   )
 }
 
