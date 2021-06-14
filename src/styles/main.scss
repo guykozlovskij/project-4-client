@@ -22,7 +22,8 @@ nav{
   background-color: #746d6d;
   display: flex;
   position: fixed;
-  top: 0;
+  top: 5px;
+  left: 5px;
   justify-content: center;
   align-items: center;
   width: 50px;
@@ -76,14 +77,14 @@ nav{
   align-items: center;
   height: 100vh;
   width: 0;
-  background: rgba(116, 109, 109, 0.3);
+  background: rgba(116, 109, 109, 0.5);
   transition: all .5s ease-in-out;
   .profileData {
     display: none;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    height: 40%;
+    height: 60%;
     width: 100%;
     img {
       width: 40%;
