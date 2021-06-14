@@ -133,3 +133,17 @@ nav{
   width: 25%;
   align-items: center;
 }
+
+.login-section{
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+
+.login-form{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 25%;
+  align-items: center;
+}

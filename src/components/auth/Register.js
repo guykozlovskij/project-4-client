@@ -28,42 +28,46 @@ export default function Register() {
 
 
   return (
-    <section className="register-section">
-      <form className="register-form" onSubmit={handleSubmit}>
-        <label>Username</label>
-        <input
-          placeholder="Username"
-          onChange={handleChange}
-          name="username"
-          value={formData.username}
-        />
-        <label>Email</label>
-        <input
-          placeholder="Email"
-          onChange={handleChange}
-          name="email"
-          value={formData.email}
-        />
-        <label>Password</label>
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={handleChange}
-          name="password"
-          value={formData.password}
-        />
-        <label>Password Confirmation</label>
-        <input
-          type="password"
-          placeholder="Password Confirmation"
-          onChange={handleChange}
-          name="passwordConfirmation"
-          value={formData.passwordConfirmation}
-        />
-        <button type="submit">
-          Register
-        </button>
-      </form>
-    </section>
+    <>
+      <section className="register-section">
+
+        <form className="register-form" onSubmit={handleSubmit}>
+          <h1>Register</h1>
+          <label>Username</label>
+          <input
+            placeholder="Username"
+            onChange={handleChange}
+            name="username"
+            value={formData.username}
+          />
+          <label>Email</label>
+          <input
+            placeholder="Email"
+            onChange={handleChange}
+            name="email"
+            value={formData.email}
+          />
+          <label>Password</label>
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+            name="password"
+            value={formData.password}
+          />
+          <label>Password Confirmation</label>
+          <input
+            type="password"
+            placeholder="Password Confirmation"
+            onChange={handleChange}
+            name="passwordConfirmation"
+            value={formData.passwordConfirmation}
+          />
+          <button type="submit">
+            Register
+          </button>
+        </form>
+      </section>
+    </>
   )
 }

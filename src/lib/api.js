@@ -14,5 +14,5 @@ export function registerUser(formData) {
 }
 
 export function loginUser(formData) {
-  return axios.post(`${baseUrl}/auth/login`, formData)
+  return axios.post(`${baseUrl}/auth/login/`, formData)
 }
