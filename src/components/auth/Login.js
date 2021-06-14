@@ -54,6 +54,9 @@ function Login() {
           <button type="submit">
             Log In
           </button>
+          {isError && (
+            <p>Either email or password were incorrect</p>
+          )}
         </form>
       </section>
     </>
