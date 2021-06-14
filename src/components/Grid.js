@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import IndividualDiv from './IndividualDiv.js'
 import * as Tone from 'tone'
 
@@ -8,7 +8,8 @@ export default function Grid() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [bpm, setBpm] = useState(120)
   let stepper = 0
-  const [songStarted, setSongStarted] = useState(false)
+  const transportEventId = useRef(null)
+  // const [songStarted, setSongStarted] = useState(false)
   const [numberOfActive, setNumberOfActive] = useState(0)
   const [allNotes, setAllNotes] = useState(
     {
@@ -42,18 +43,25 @@ export default function Grid() {
     new Tone.Synth().connect(gain)
   ]
 
-
+  const synth2 = new Tone.Synth({
+    oscillator: {
+      volume: 5,
+      count: 3,
+      spread: 40,
+      type: 'fatsawtooth',
+    }
+  }).toDestination()
 
   synths.map(synth => (
-    synth.oscillator.type = 'sawtooth'
+    synth.value()
   ))
 
 
   const notes = Object.keys(allNotes)
   console.log('Outside FUNCTION')
-  console.log('numberOFACTIVE',numberOfActive)
+  console.log('numberOFACTIVE', numberOfActive)
 
-  function repeat(time) {
+  const repeat = (time) => {
     const step = stepper % 16
     notes.forEach((note, index) => {
       if (allNotes[note][step]) {
@@ -69,19 +77,23 @@ export default function Grid() {
     stepper++
   }
 
-  const handlePlay = () => {
+
+  const handlePlay = async () => {
     if (!isPlaying) {
-      if (!songStarted) {
-        Tone.Transport.scheduleRepeat(repeat, '8n')
-        Tone.Time('1m')
-    
-      }
-      setSongStarted(true)
-      Tone.Transport.start()
+      // if (!songStarted) {
+      const eventId = await Tone.Transport.scheduleRepeat(repeat, '8n')
+      transportEventId.current = eventId
+      await Tone.Time('1m')
+
+      // }
+      // setSongStarted(true)
+      await Tone.Transport.start()
       setIsPlaying(!isPlaying)
 
     } else {
-      Tone.Transport.stop()
+      await Tone.Transport.stop()
+      await Tone.Transport.clear(transportEventId.current)
+      // await Tone.Transport.dispose()
       setIsPlaying(!isPlaying)
       // setAllNotes(false)
     }
@@ -95,7 +107,7 @@ export default function Grid() {
       <h1>Grid Stuff</h1>
       {notes.map(note => {
         return (
-          <IndividualDiv key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} setNumberOfActive={setNumberOfActive} numberOfActive={numberOfActive}/>
+          <IndividualDiv key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} setNumberOfActive={setNumberOfActive} numberOfActive={numberOfActive} />
         )
       })}
       <button onClick={handlePlay}>{!isPlaying ? 'Play' : 'Stop'}</button>
