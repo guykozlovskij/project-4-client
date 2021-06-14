@@ -13,13 +13,14 @@ export default function Grid() {
   const [numberOfActive, setNumberOfActive] = useState(0)
   const [allNotes, setAllNotes] = useState(
     {
-      C4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      D4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      E4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      F4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      G4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      A4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      C5: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
       B4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      A4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      G4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      F4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      E4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      D4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      C4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
     })
 
   const gain = new Tone.Gain(0.1)
@@ -82,16 +83,18 @@ export default function Grid() {
     Tone.Transport.bpm.value = e.target.value
   }
   return (
-    <div>
-      <h1>Grid Stuff</h1>
-      {notes.map(note => {
-        return (
-          <IndividualDiv key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} setNumberOfActive={setNumberOfActive} numberOfActive={numberOfActive} />
-        )
-      })}
-      <button onClick={handlePlay}>{!isPlaying ? 'Play' : 'Stop'}</button>
-      <input type='range' min='10' max='200' value={bpm} onChange={handleBpm} />
-      <h3>{bpm}</h3>
-    </div>
+    <section className="grid-parent">
+      <div className="grid">
+        <h1>Grid Stuff</h1>
+        {notes.map(note => {
+          return (
+            <IndividualDiv key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} setNumberOfActive={setNumberOfActive} numberOfActive={numberOfActive} />
+          )
+        })}
+        <button className="play-button" onClick={handlePlay}>{!isPlaying ? 'Play' : 'Stop'}</button>
+        <input type='range' min='10' max='200' value={bpm} onChange={handleBpm} />
+        <h3>{bpm}</h3>
+      </div>
+    </section>
   )
 }

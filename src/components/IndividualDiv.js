@@ -18,7 +18,7 @@ export default function IndividualDiv({ note, buttonsSelected, setAllNotes, allN
     <div className='testDiv'>
       {buttonsSelected.map((isOn, index) => {
         return (
-          <button key={index} value={index} className={isOn ? 'clicked' : ''} onClick={handleClick}>{note}</button>
+          <button  key={index} value={index} className={`music-button ${isOn ? 'clicked' : ''}`} onClick={handleClick}>{note}</button>
         )
       })}
     </div> 
