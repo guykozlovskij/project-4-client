@@ -19,7 +19,7 @@ export default function Grid() {
       <h1>Grid Stuff</h1>
       {notes.map(note => {
         return (
-          <IndividualDiv key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} synth={synth}/>
+          <IndividualDiv key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} synth={synth} />
         )
       })}
     </div>
