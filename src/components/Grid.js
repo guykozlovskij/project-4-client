@@ -27,27 +27,11 @@ export default function Grid() {
   const gain = new Tone.Gain(0.1)
   gain.toDestination()
 
-  const synths = [
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain)
-  ]
+  const synths = new Tone.PolySynth().connect(gain)
 
 
 
-  synths.map(synth => (
-    synth.oscillator.type = 'sawtooth'
-  ))
-
+  if (numberOfActive) synths.volume.value = 1 / numberOfActive
 
   const notes = Object.keys(allNotes)
   console.log('Outside FUNCTION')
@@ -55,21 +39,19 @@ export default function Grid() {
 
   function repeat(time) {
     const step = stepper % 16
-    notes.forEach((note, index) => {
+    notes.forEach((note) => {
       if (allNotes[note][step]) {
-        const synth = synths[index]
-        synth.volume.value = 1 / numberOfActive
+        // synth.volume.value = 1 / numberOfActive
         console.log('Inside Function')
         console.log(1 / numberOfActive)
-        console.log(synth.volume.value)
         console.log(numberOfActive)
-        synth.triggerAttackRelease(note, '8n', time)
+        synths.triggerAttackRelease(note, '8n', time)
       }
     })
     stepper++
   }
 
-  const handlePlay = () => {
+  const handlePlay = async () => {
     if (!isPlaying) {
       if (!songStarted) {
         Tone.Transport.scheduleRepeat(repeat, '8n')
@@ -77,11 +59,11 @@ export default function Grid() {
     
       }
       setSongStarted(true)
-      Tone.Transport.start()
+      await Tone.Transport.start()
       setIsPlaying(!isPlaying)
 
     } else {
-      Tone.Transport.stop()
+      await Tone.Transport.stop()
       setIsPlaying(!isPlaying)
       // setAllNotes(false)
     }
