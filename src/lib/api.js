@@ -18,5 +18,5 @@ export function loginUser(formData) {
 }
 
 export function getUser(userId) {
-  return axios.post(`${baseUrl}/auth/profile/${userId}/`)
+  return axios.get(`${baseUrl}/auth/profile/${userId}/`)
 }
