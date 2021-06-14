@@ -1,11 +1,30 @@
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { Link, useHistory, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { isAuthenticated, removeToken } from '../../lib/auth'
+import { getUser } from '../../lib/api'
 
 export default function Nav() {
   const [navbarClicked, setNavbarClicked] = useState(false)
-
+  const location = useLocation()
+  const history = useHistory()
+  const [isLoggedIn, setIsLoggedIn] = useState(isAuthenticated())
+  const user = async () => {
+    try {
+      const { data } = await getUser()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    setIsLoggedIn(isAuthenticated())
+  }, [location.pathname])
   const handleClick = () => {
     setNavbarClicked(!navbarClicked)
+  }
+  const handleLogout = () => {
+    setNavbarClicked(!navbarClicked)
+    removeToken()
+    history.push('/')
   }
   return (
     <nav>
@@ -25,7 +44,7 @@ export default function Nav() {
         <div className='otherLinks'>
           <Link onClick={handleClick} to='/login'>Login</Link>
           <Link onClick={handleClick} to='/register'>Register</Link>
-          <Link onClick={handleClick} to='/'>Logout</Link>
+          <Link onClick={handleLogout} to='/'>Logout</Link>
         </div>
       </div>
     </nav>
