@@ -43,18 +43,6 @@ export default function Grid() {
     new Tone.Synth().connect(gain)
   ]
 
-  const synth2 = new Tone.Synth({
-    oscillator: {
-      volume: 5,
-      count: 3,
-      spread: 40,
-      type: 'fatsawtooth',
-    }
-  }).toDestination()
-
-  synths.map(synth => (
-    synth.value()
-  ))
 
 
   const notes = Object.keys(allNotes)
