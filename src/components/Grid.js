@@ -6,17 +6,27 @@ import * as Tone from 'tone'
 
 export default function Grid() {
   const [isPlaying, setIsPlaying] = useState(false)
-  const [counter, setCounter] = useState(0)
+  const [bpm, setBpm] = useState(120)
   let stepper = 0
   const [allNotes, setAllNotes] = useState(
     {
-      C1: [false, false, false, false],
-      C2: [true, false, false, false],
-      C3: [false, false, false, false],
-      C4: [false, false, false, false],
-      A1: [false, false, false, false],
+      C1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      D1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      E1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      F1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      G1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      A1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      B1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      C2: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      C3: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      C4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
     })
   const synths = [
+    new Tone.Synth().toDestination(),
+    new Tone.Synth().toDestination(),
+    new Tone.Synth().toDestination(),
+    new Tone.Synth().toDestination(),
+    new Tone.Synth().toDestination(),
     new Tone.Synth().toDestination(),
     new Tone.Synth().toDestination(),
     new Tone.Synth().toDestination(),
@@ -26,26 +36,18 @@ export default function Grid() {
 
   const notes = Object.keys(allNotes)
 
+  
   function repeat(time) {
-    const step = stepper % 4
+    const step = stepper % 16
     notes.forEach((note, index) => {
-      console.log(note, index, step)
       if (allNotes[note][step]) {
-        console.log('here')
         const synth = synths[index]
         synth.triggerAttackRelease(note, '8n', time)
-      } else {
-        console.log('anything')
       }
     })
-    // const newCounter = counter + 1
-    // console.log(newCounter)
-    // setCounter(newCounter)
-    // console.log('countere here')
-    // console.log(counter)
     stepper ++
   }
-
+  
   const handlePlay = () => {
     if (!isPlaying) {
       Tone.Transport.scheduleRepeat(repeat, '8n')
@@ -53,20 +55,25 @@ export default function Grid() {
       setIsPlaying(!isPlaying)
     } else {
       Tone.Transport.stop()
-      setCounter(0)
       setIsPlaying(!isPlaying)
     }
   }
 
+  const handleBpm = (e) => {
+    setBpm(e.target.value)
+    Tone.Transport.bpm.value = e.target.value
+  }
   return (
     <div>
       <h1>Grid Stuff</h1>
-      {notes.map((note, index)=> {
+      {notes.map(note => {
         return (
-          <IndividualDiv key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} synth={synths[index]}/>
+          <IndividualDiv key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes}/>
         )
       })}
-      <button onClick={handlePlay}>Play</button>
+      <button onClick={handlePlay}>{!isPlaying ? 'Play' : 'Stop' }</button>
+      <input type='range' min='10' max='200' value={bpm} onChange={handleBpm}/>
+      <h3>{bpm}</h3>
     </div>
   )
 }
