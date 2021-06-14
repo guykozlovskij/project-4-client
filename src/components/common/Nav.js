@@ -7,7 +7,6 @@ export default function Nav() {
   const handleClick = () => {
     setNavbarClicked(!navbarClicked)
   }
-  console.log(navbarClicked)
   return (
     <nav>
       <Link className='homeLink' to='/'>Music-Maker</Link>
