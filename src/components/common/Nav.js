@@ -19,14 +19,14 @@ export default function Nav() {
         <div className='profileData'>
           <img src='https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg' alt='userName' />
           <h3>Username</h3>
-          <Link>Your Songs</Link>
-          <Link>Liked Songs</Link>
-          <Link to='/make-song'>Make a song</Link>
+          <Link onClick={handleClick} to='/'>Your Songs</Link>
+          <Link onClick={handleClick} to='/'>Liked Songs</Link>
+          <Link onClick={handleClick} to='/make-song'>Make a song</Link>
         </div>
         <div className='otherLinks'>
-          <Link to='/'>Home</Link>
-          <Link to='/login'>Login</Link>
-          <Link to='/register'>Register</Link>
+          <Link onClick={handleClick} to='/login'>Login</Link>
+          <Link onClick={handleClick} to='/register'>Register</Link>
+          <Link onClick={handleClick} to='/'>Logout</Link>
         </div>
       </div>
     </nav>
