@@ -9,6 +9,7 @@ export default function Grid() {
   const [bpm, setBpm] = useState(120)
   let stepper = 0
   const [songStarted, setSongStarted] = useState(false)
+  const [numberOfActive, setNumberOfActive] = useState(0)
   const [allNotes, setAllNotes] = useState(
     {
       C1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
@@ -47,16 +48,21 @@ export default function Grid() {
     synth.oscillator.type = 'sawtooth'
   ))
 
-  console.log('here')
 
   const notes = Object.keys(allNotes)
-
+  console.log('Outside FUNCTION')
+  console.log('numberOFACTIVE',numberOfActive)
 
   function repeat(time) {
     const step = stepper % 16
     notes.forEach((note, index) => {
       if (allNotes[note][step]) {
         const synth = synths[index]
+        synth.volume.value = 1 / numberOfActive
+        console.log('Inside Function')
+        console.log(1 / numberOfActive)
+        console.log(synth.volume.value)
+        console.log(numberOfActive)
         synth.triggerAttackRelease(note, '8n', time)
       }
     })
@@ -80,7 +86,6 @@ export default function Grid() {
       // setAllNotes(false)
     }
   }
-
   const handleBpm = (e) => {
     setBpm(e.target.value)
     Tone.Transport.bpm.value = e.target.value
@@ -90,7 +95,7 @@ export default function Grid() {
       <h1>Grid Stuff</h1>
       {notes.map(note => {
         return (
-          <IndividualDiv key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} />
+          <IndividualDiv key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} setNumberOfActive={setNumberOfActive} numberOfActive={numberOfActive}/>
         )
       })}
       <button onClick={handlePlay}>{!isPlaying ? 'Play' : 'Stop'}</button>
