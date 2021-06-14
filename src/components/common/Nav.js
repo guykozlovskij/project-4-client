@@ -44,18 +44,20 @@ export default function Nav() {
         {user && <div className='profileData'>
           <img src={user.profileImage} alt={user.username} />
           <h3>{user.username}</h3>
-          <Link onClick={handleClick} to='/'>Your Songs</Link>
-          <Link onClick={handleClick} to='/'>Liked Songs</Link>
-          <Link onClick={handleClick} to='/make-song'>Make a song</Link>
+          <div className='mainLinks'>
+            <Link className='navLink' onClick={handleClick} to='/'>Your Songs</Link>
+            <Link className='navLink' onClick={handleClick} to='/'>Liked Songs</Link>
+            <Link className='navLink' onClick={handleClick} to='/'>Make a song</Link>
+          </div>
         </div>}
         <div className='otherLinks'>
           {!isLoggedIn ?
             <>
-              <Link onClick={handleClick} to='/login'>Login</Link>
-              <Link onClick={handleClick} to='/register'>Register</Link>
+              <Link className='navLink' onClick={handleClick} to='/login'>Login</Link>
+              <Link className='navLink' onClick={handleClick} to='/register'>Register</Link>
             </>
             :
-            <Link onClick={handleLogout} to='/'>Logout</Link>
+            <Link className='navLink' onClick={handleLogout} to='/'>Logout</Link>
           }
         </div>
       </div>

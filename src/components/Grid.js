@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import IndividualDiv from './IndividualDiv.js'
 import * as Tone from 'tone'
+import noNotes from '../hooks/noNotes.js'
 
 
 
@@ -11,17 +12,7 @@ export default function Grid() {
   const transportEventId = useRef(null)
   // const [songStarted, setSongStarted] = useState(false)
   const [numberOfActive, setNumberOfActive] = useState(0)
-  const [allNotes, setAllNotes] = useState(
-    {
-      C4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      D4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      E4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      F4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      G4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      A4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      B4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-    })
-
+  const [allNotes, setAllNotes] = useState(noNotes)
   const gain = new Tone.Gain(0.1)
   gain.toDestination()
 
@@ -59,13 +50,13 @@ export default function Grid() {
 
   const handlePlay = async () => {
     if (!isPlaying) {
-      // if (!songStarted) {
+
       const eventId = await Tone.Transport.scheduleRepeat(repeat, '8n')
       transportEventId.current = eventId
       await Tone.Time('1m')
 
-      // }
-      // setSongStarted(true)
+
+
       await Tone.Transport.start()
       setIsPlaying(!isPlaying)
 
@@ -74,12 +65,20 @@ export default function Grid() {
       await Tone.Transport.clear(transportEventId.current)
       // await Tone.Transport.dispose()
       setIsPlaying(!isPlaying)
-      // setAllNotes(false)
+
     }
   }
   const handleBpm = (e) => {
     setBpm(e.target.value)
     Tone.Transport.bpm.value = e.target.value
+  }
+  const handleClear = async () => {
+    setAllNotes(noNotes)
+    setIsPlaying(false)
+    await Tone.Transport.stop()
+    await Tone.Transport.clear(transportEventId.current)
+
+
   }
   return (
     <div>
@@ -91,6 +90,7 @@ export default function Grid() {
       })}
       <button onClick={handlePlay}>{!isPlaying ? 'Play' : 'Stop'}</button>
       <input type='range' min='10' max='200' value={bpm} onChange={handleBpm} />
+      <button onClick={handleClear}>Clear notes</button>
       <h3>{bpm}</h3>
     </div>
   )
