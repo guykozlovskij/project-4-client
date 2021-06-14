@@ -22,18 +22,32 @@ export default function Grid() {
       C3: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
       C4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
     })
+
+  const gain = new Tone.Gain(0.1)
+  gain.toDestination()
+
   const synths = [
-    new Tone.Synth().toDestination(),
-    new Tone.Synth().toDestination(),
-    new Tone.Synth().toDestination(),
-    new Tone.Synth().toDestination(),
-    new Tone.Synth().toDestination(),
-    new Tone.Synth().toDestination(),
-    new Tone.Synth().toDestination(),
-    new Tone.Synth().toDestination(),
-    new Tone.Synth().toDestination(),
-    new Tone.Synth().toDestination()
+    new Tone.Synth().connect(gain),
+    new Tone.Synth().connect(gain),
+    new Tone.Synth().connect(gain),
+    new Tone.Synth().connect(gain),
+    new Tone.Synth().connect(gain),
+    new Tone.Synth().connect(gain),
+    new Tone.Synth().connect(gain),
+    new Tone.Synth().connect(gain),
+    new Tone.Synth().connect(gain),
+    new Tone.Synth().connect(gain),
+    new Tone.Synth().connect(gain),
+    new Tone.Synth().connect(gain)
   ]
+
+
+
+  synths.map(synth => (
+    synth.oscillator.type = 'sawtooth'
+  ))
+
+  console.log('here')
 
   const notes = Object.keys(allNotes)
 
@@ -53,6 +67,8 @@ export default function Grid() {
     if (!isPlaying) {
       if (!songStarted) {
         Tone.Transport.scheduleRepeat(repeat, '8n')
+        Tone.Time('1m')
+    
       }
       setSongStarted(true)
       Tone.Transport.start()
