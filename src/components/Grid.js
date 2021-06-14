@@ -8,6 +8,7 @@ export default function Grid() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [bpm, setBpm] = useState(120)
   let stepper = 0
+  const [songStarted, setSongStarted] = useState(false)
   const [allNotes, setAllNotes] = useState(
     {
       C1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
@@ -36,7 +37,7 @@ export default function Grid() {
 
   const notes = Object.keys(allNotes)
 
-  
+
   function repeat(time) {
     const step = stepper % 16
     notes.forEach((note, index) => {
@@ -45,17 +46,22 @@ export default function Grid() {
         synth.triggerAttackRelease(note, '8n', time)
       }
     })
-    stepper ++
+    stepper++
   }
-  
+
   const handlePlay = () => {
     if (!isPlaying) {
-      Tone.Transport.scheduleRepeat(repeat, '8n')
+      if (!songStarted) {
+        Tone.Transport.scheduleRepeat(repeat, '8n')
+      }
+      setSongStarted(true)
       Tone.Transport.start()
       setIsPlaying(!isPlaying)
+
     } else {
       Tone.Transport.stop()
       setIsPlaying(!isPlaying)
+      // setAllNotes(false)
     }
   }
 
@@ -68,11 +74,11 @@ export default function Grid() {
       <h1>Grid Stuff</h1>
       {notes.map(note => {
         return (
-          <IndividualDiv key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes}/>
+          <IndividualDiv key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} />
         )
       })}
-      <button onClick={handlePlay}>{!isPlaying ? 'Play' : 'Stop' }</button>
-      <input type='range' min='10' max='200' value={bpm} onChange={handleBpm}/>
+      <button onClick={handlePlay}>{!isPlaying ? 'Play' : 'Stop'}</button>
+      <input type='range' min='10' max='200' value={bpm} onChange={handleBpm} />
       <h3>{bpm}</h3>
     </div>
   )
