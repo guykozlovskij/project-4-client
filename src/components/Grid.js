@@ -13,37 +13,30 @@ export default function Grid() {
   const [numberOfActive, setNumberOfActive] = useState(0)
   const [allNotes, setAllNotes] = useState(
     {
-      C1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      D1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      E1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      F1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      G1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      A1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      B1: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      C2: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-      C3: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
       C4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      D4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      E4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      F4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      G4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      A4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      B4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
     })
 
   const gain = new Tone.Gain(0.1)
   gain.toDestination()
 
-  const synths = [
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain),
-    new Tone.Synth().connect(gain)
-  ]
+  const synths = new Tone.PolySynth().connect(gain)
 
+  // const synth2 = new Tone.Synth({
+  //   oscillator: {
+  //     volume: 5,
+  //     count: 3,
+  //     spread: 40,
+  //     type: 'fatsawtooth',
+  //   }
+  // }).toDestination()
 
+  if (numberOfActive) synths.volume.value = 1 / numberOfActive
 
   const notes = Object.keys(allNotes)
   console.log('Outside FUNCTION')
@@ -51,15 +44,13 @@ export default function Grid() {
 
   const repeat = (time) => {
     const step = stepper % 16
-    notes.forEach((note, index) => {
+    notes.forEach((note) => {
       if (allNotes[note][step]) {
-        const synth = synths[index]
-        synth.volume.value = 1 / numberOfActive
+        // synth.volume.value = 1 / numberOfActive
         console.log('Inside Function')
         console.log(1 / numberOfActive)
-        console.log(synth.volume.value)
         console.log(numberOfActive)
-        synth.triggerAttackRelease(note, '8n', time)
+        synths.triggerAttackRelease(note, '8n', time)
       }
     })
     stepper++
