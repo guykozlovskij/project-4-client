@@ -85,13 +85,15 @@
   flex-direction: row;
   flex: 1;
   flex-wrap: wrap;
-  max-width: 800px;
+  max-width: 840px;
+  justify-content: center;
 }
 
 .song-card{
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  width: 200px;
   margin: 5px;
   padding: 5px;
   border: 1px solid black;
