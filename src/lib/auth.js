@@ -24,6 +24,14 @@ export function getSavedSong() {
   return savedSong
 }
 
+export function setSongId(eventId) {
+  window.localStorage.setItem('eventId', eventId)
+}
+
+export function getSongId() {
+  return window.localStorage.getItem('eventId')
+}
+
 export function getPayload() {
   const token = getToken()
   if (!token) return false

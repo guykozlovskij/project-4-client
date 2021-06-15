@@ -1,7 +1,8 @@
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getPayload, isAuthenticated, removeToken } from '../../lib/auth'
+import { getPayload, getSongId, isAuthenticated, removeToken } from '../../lib/auth'
 import { getUser } from '../../lib/api'
+import * as Tone from 'tone'
 
 export default function Nav() {
   const [navbarClicked, setNavbarClicked] = useState(false)
@@ -14,6 +15,10 @@ export default function Nav() {
   useEffect(() => {
     setIsLoggedIn(isAuthenticated())
     const getData = async () => {
+      if (getSongId()) {
+        await Tone.Transport.stop()
+        await Tone.Transport.clear(getSongId().eventId)
+      }
       try {
         const { data } = await getUser(sub)
         setUser(data)
@@ -47,6 +52,7 @@ export default function Nav() {
           <div className='mainLinks'>
             <Link className='navLink' onClick={handleClick} to='/'>Your Songs</Link>
             <Link className='navLink' onClick={handleClick} to='/'>Liked Songs</Link>
+            <Link className='navLink' onClick={handleClick} to='/songs'>All Songs</Link>
             <Link className='navLink' onClick={handleClick} to='/'>Make a song</Link>
           </div>
         </div>}

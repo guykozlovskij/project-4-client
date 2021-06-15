@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import IndividualButton from './IndividualButton.js'
 import * as Tone from 'tone'
 import noNotes from '../hooks/noNotes.js'
-import { getSavedSong, isAuthenticated, setSavedSong } from '../lib/auth.js'
+import { getSavedSong, isAuthenticated, setSavedSong, setSongId } from '../lib/auth.js'
 import SaveSong from './SaveSong.js'
 import { useHistory } from 'react-router'
 
@@ -31,15 +31,6 @@ export default function Grid() {
     }
   }, [])
 
-  // const synth2 = new Tone.Synth({
-  //   oscillator: {
-  //     volume: 5,
-  //     count: 3,
-  //     spread: 40,
-  //     type: 'fatsawtooth',
-  //   }
-  // }).toDestination()
-
   if (numberOfActive) synths.volume.value = 1 / numberOfActive
 
   const notes = Object.keys(allNotes)
@@ -59,6 +50,7 @@ export default function Grid() {
     if (!isPlaying) {
 
       const eventId = await Tone.Transport.scheduleRepeat(repeat, '8n')
+      setSongId(eventId)
       transportEventId.current = eventId
       await Tone.Time('1m')
 
