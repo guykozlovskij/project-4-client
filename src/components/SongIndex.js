@@ -1,4 +1,5 @@
 import React from 'react'
+import { Tone } from 'tone/build/esm/core/Tone'
 import { getAllSongs } from '../lib/api'
 
 export default function SongIndex() {
@@ -11,11 +12,15 @@ export default function SongIndex() {
     }
     getData()
   }, [])
-
   console.log(songs)
 
 
+  // const playSong = async () => {
+  //   const eventId = await Tone.Transport.scheduleRepeat(repeat, '8n')
+  //   transportEventId.current = eventId
+  //   await Tone.Time('1m')
 
+  // }
 
 
   return (
@@ -28,6 +33,9 @@ export default function SongIndex() {
               <h3>{song.name}</h3>
               <h4>Created by: {song.owner.username}</h4>
               <h4>Likes: {song.likes}</h4>
+              <button>
+                Play
+              </button>
             </div>
           )
         }))}

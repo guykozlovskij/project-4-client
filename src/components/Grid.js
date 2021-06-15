@@ -41,6 +41,7 @@ export default function Grid() {
         console.log('Inside Function')
         console.log(1 / numberOfActive)
         console.log(numberOfActive)
+        
         synths.triggerAttackRelease(note, '8n', time)
       }
     })
