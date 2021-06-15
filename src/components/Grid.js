@@ -87,8 +87,6 @@ export default function Grid() {
     setIsPlaying(false)
   }
   const handleSaveNotLoggedIn = async() => {
-    await Tone.Transport.stop()
-    await Tone.Transport.clear(transportEventId.current)
     setSavedSong(allNotes, numberOfActive)
     history.push('/login')
   }
