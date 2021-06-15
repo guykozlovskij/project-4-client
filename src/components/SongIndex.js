@@ -5,13 +5,11 @@ import noNotes from '../hooks/noNotes'
 
 export default function SongIndex() {
   const [songs, setSongs] = React.useState(null)
-  const [isPlaying, setIsPlaying] = React.useState(false)
+  const [id, setId] = React.useState(null)
   const transportEventId = React.useRef(null)
   let stepper = 0
   const gain = new Tone.Gain(0.1)
   gain.toDestination()
-
-
 
 
   React.useEffect(() => {
@@ -23,21 +21,29 @@ export default function SongIndex() {
   }, [])
 
 
-
-
   const synths = new Tone.PolySynth().connect(gain)
   let allNotes
 
-
-  
-
-
-
   const playSong = async (e) => {
+    await Tone.Transport.stop()
+    await Tone.Transport.clear(transportEventId.current)
+    let newPlay = false
+
     allNotes = { ...noNotes, ...songs[e.target.name].notes }
     const notes = Object.keys(allNotes)
+    
+    if (id === songs[e.target.name].id){
+      setId(null)
+    } else {
+      newPlay = true
+      setId(songs[e.target.name].id)
+      await Tone.Transport.stop()
+      await Tone.Transport.clear(transportEventId.current)
+      
+    }
 
-    if (!isPlaying) {
+
+    if (newPlay) {
       const repeat = (time) => {
         const step = stepper % 16
         notes.forEach((note) => {
@@ -47,28 +53,17 @@ export default function SongIndex() {
         })
         stepper++
       }
-      
+
       const eventId = await Tone.Transport.scheduleRepeat(repeat, '8n')
-      Tone.Transport.bpm.value = songs[e.target.name].tempo 
+      Tone.Transport.bpm.value = songs[e.target.name].tempo
       transportEventId.current = eventId
 
       await Tone.Time('1m')
       await Tone.Transport.start()
-      setIsPlaying(!isPlaying)
-      
-
-    } else {
-      await Tone.Transport.stop()
-      await Tone.Transport.clear(transportEventId.current)
-      // await Tone.Transport.dispose()
-      setIsPlaying(!isPlaying)
-      
-
-    }
+    } 
   }
 
-
-
+  
   return (
     <section className="song-index-page">
       <h1>Songs</h1>
@@ -80,7 +75,7 @@ export default function SongIndex() {
               <h4>Created by: {song.owner.username}</h4>
               <h4>Likes: {song.likes}</h4>
               <button name={index} onClick={playSong}>
-                {isPlaying ? 'Stop' : 'Play'}
+                {id === song.id ? 'Stop' : 'Play'}
               </button>
             </div>
           )
@@ -88,5 +83,4 @@ export default function SongIndex() {
       </section>
     </section >
   )
-
 }
