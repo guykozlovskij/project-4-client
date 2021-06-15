@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import IndividualDiv from './IndividualDiv.js'
+import IndividualButton from './IndividualButton.js'
 import * as Tone from 'tone'
 import noNotes from '../hooks/noNotes.js'
 
@@ -30,14 +30,11 @@ export default function Grid() {
   if (numberOfActive) synths.volume.value = 1 / numberOfActive
 
   const notes = Object.keys(allNotes)
-  console.log('Outside FUNCTION')
-  console.log('numberOFACTIVE', numberOfActive)
 
   const repeat = (time) => {
     const step = stepper % 16
     notes.forEach((note) => {
       if (allNotes[note][step]) {
-        // synth.volume.value = 1 / numberOfActive
         console.log('Inside Function')
         console.log(1 / numberOfActive)
         console.log(numberOfActive)
@@ -86,7 +83,7 @@ export default function Grid() {
         <h1>Grid Stuff</h1>
         {notes.map(note => {
           return (
-            <IndividualDiv key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} setNumberOfActive={setNumberOfActive} numberOfActive={numberOfActive} />
+            <IndividualButton key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} setNumberOfActive={setNumberOfActive} numberOfActive={numberOfActive} isPlaying={isPlaying} synth={synths}/>
           )
         })}
         <button className="play-button" onClick={handlePlay}>{!isPlaying ? 'Play' : 'Stop'}</button>

@@ -1,12 +1,11 @@
 import React from 'react'
 
-export default function IndividualDiv({ note, buttonsSelected, setAllNotes, allNotes, setNumberOfActive, numberOfActive }) {
-
-
+export default function IndividualButton({ note, buttonsSelected, setAllNotes, allNotes, setNumberOfActive, numberOfActive, isPlaying, synth }) {
   const handleClick = (e) => {
     if (buttonsSelected[e.target.value]) {
       setNumberOfActive(numberOfActive - 1)
     } else {
+      if (!isPlaying) synth.triggerAttackRelease(note, '8n')
       setNumberOfActive(numberOfActive + 1)
 
     }
