@@ -6,15 +6,7 @@ import Nav from './components/common/Nav'
 import MakeSong from './components/MakeSong'
 
 function App() {
-  // React.useEffect(() => {
-  //   const getData = async () => {
-  //     const res = await fetch('/api/endpoint') // * <-- replace with your endpoint
-  //     const data = await res.json()
-  //     console.log(data)
-  //   }
-  //   getData()
-  // })
-
+  
   return (
     <Router>
       <Nav />

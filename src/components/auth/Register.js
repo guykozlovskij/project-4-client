@@ -59,7 +59,7 @@ export default function Register() {
             onChange={handleChange}
             name="password"
             value={formData.password}
-          />``
+          />
           {formErrors.password && (
             <p>{formErrors.password}</p>
           )}

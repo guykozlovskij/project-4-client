@@ -10,6 +10,20 @@ export function removeToken() {
   window.localStorage.removeItem('token')
 }
 
+export function setSavedSong(allNotes, numberOfActive) {
+  const savedSong = {
+    allNotes: allNotes,
+    numberOfActive: numberOfActive,
+  }
+  window.localStorage.setItem('savedSong', JSON.stringify(savedSong))
+}
+
+export function getSavedSong() {
+  const savedSong = JSON.parse(window.localStorage.getItem('savedSong'))
+  window.localStorage.removeItem('savedSong')
+  return savedSong
+}
+
 export function getPayload() {
   const token = getToken()
   if (!token) return false

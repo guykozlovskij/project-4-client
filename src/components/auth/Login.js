@@ -3,6 +3,7 @@ import { useHistory } from 'react-router'
 import { loginUser } from '../../lib/api'
 import { setToken } from '../../lib/auth'
 import useForm from '../../hooks/useForm'
+import { Link } from 'react-router-dom'
 
 function Login() {
   const history = useHistory()
@@ -58,6 +59,7 @@ function Login() {
             <p>Either email or password were incorrect</p>
           )}
         </form>
+        <Link to='/register'>Register an account here</Link>
       </section>
     </>
   )
