@@ -1,12 +1,12 @@
 import axios from 'axios'
-// import { getToken } from './auth'
+import { getToken } from './auth'
 const baseUrl = '/api'
 
-// function headers() {
-//   return {
-//     headers: { Authorization: `Bearer ${getToken()}` },
-//   }
-// }
+function headers() {
+  return {
+    headers: { Authorization: `Bearer ${getToken()}` },
+  }
+}
 
 //? Authentication requests
 export function registerUser(formData) {
@@ -19,4 +19,9 @@ export function loginUser(formData) {
 
 export function getUser(userId) {
   return axios.get(`${baseUrl}/auth/profile/${userId}/`)
+}
+
+// Song Requests
+export function createSong(formData) {
+  return axios.post(`${baseUrl}/songs/`, formData, headers())
 }

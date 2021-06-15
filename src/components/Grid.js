@@ -2,12 +2,15 @@ import { useState, useRef } from 'react'
 import IndividualButton from './IndividualButton.js'
 import * as Tone from 'tone'
 import noNotes from '../hooks/noNotes.js'
+import { isAuthenticated } from '../lib/auth.js'
+import SaveSong from './common/SaveSong.js'
 
 
 
 export default function Grid() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [bpm, setBpm] = useState(120)
+  const [isSaving, setIsSaving] = useState(false)
   let stepper = 0
   const transportEventId = useRef(null)
   // const [songStarted, setSongStarted] = useState(false)
@@ -69,13 +72,19 @@ export default function Grid() {
     setBpm(e.target.value)
     Tone.Transport.bpm.value = e.target.value
   }
+
+  console.log(allNotes)
+  console.log(JSON.stringify(allNotes))
   const handleClear = async () => {
     setAllNotes(noNotes)
     setIsPlaying(false)
     await Tone.Transport.stop()
     await Tone.Transport.clear(transportEventId.current)
 
+  }
 
+  const handleSave = () => {
+    setIsSaving(true)
   }
   return (
     <section className="grid-parent">
@@ -90,7 +99,9 @@ export default function Grid() {
         <button onClick={handleClear}>Clear notes</button>
         <input type='range' min='10' max='200' value={bpm} onChange={handleBpm} />
         <h3>{bpm}</h3>
+        {isAuthenticated() && <button onClick={handleSave}>Save Song</button>}
       </div>
+      {isSaving && <SaveSong bpm={bpm} allNotes={allNotes}/>}
     </section>
   )
 }
