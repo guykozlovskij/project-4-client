@@ -52,10 +52,10 @@ export default function SongIndex() {
   const playSong = async (e) => {
     setAllNotes({ ...noNotes, ...songs[e.target.name].notes })
 
-    console.log("button is pressed")
+    console.log('button is pressed')
     if (!isPlaying) {
       const eventId = await Tone.Transport.scheduleRepeat(repeat, '8n')
-      Tone.Transport.bpm.value = songs[e.target.name].tempo
+      Tone.Transport.bpm.value = songs[e.target.name].tempo 
       transportEventId.current = eventId
       await Tone.Time('1m')
       await Tone.Transport.start()
