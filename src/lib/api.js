@@ -21,7 +21,11 @@ export function getUser(userId) {
   return axios.get(`${baseUrl}/auth/profile/${userId}/`)
 }
 
-// Song Requests
+//? Song Requests
 export function createSong(formData) {
   return axios.post(`${baseUrl}/songs/`, formData, headers())
+}
+
+export function getAllSongs(){
+  return axios.get(`${baseUrl}/songs/`)
 }
