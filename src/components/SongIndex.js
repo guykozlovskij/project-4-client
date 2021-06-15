@@ -12,8 +12,6 @@ export default function SongIndex() {
   gain.toDestination()
 
 
-
-
   React.useEffect(() => {
     const getData = async () => {
       const resposne = await getAllSongs()
@@ -21,8 +19,6 @@ export default function SongIndex() {
     }
     getData()
   }, [])
-
-
 
 
   const synths = new Tone.PolySynth().connect(gain)
@@ -45,8 +41,7 @@ export default function SongIndex() {
       await Tone.Transport.clear(transportEventId.current)
       
     }
-      
-    
+
 
     if (newPlay) {
       const repeat = (time) => {
@@ -59,21 +54,16 @@ export default function SongIndex() {
         stepper++
       }
 
-
-
       const eventId = await Tone.Transport.scheduleRepeat(repeat, '8n')
       Tone.Transport.bpm.value = songs[e.target.name].tempo
       transportEventId.current = eventId
 
       await Tone.Time('1m')
       await Tone.Transport.start()
-
-
     } 
   }
 
-
-
+  
   return (
     <section className="song-index-page">
       <h1>Songs</h1>
