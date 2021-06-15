@@ -1,7 +1,6 @@
 import React from 'react'
 import * as Tone from 'tone'
 import { getAllSongs } from '../lib/api'
-import noNotes from '../hooks/noNotes'
 import { setSongId } from '../lib/auth'
 
 export default function SongIndex() {
@@ -29,8 +28,8 @@ export default function SongIndex() {
     await Tone.Transport.stop()
     await Tone.Transport.clear(transportEventId.current)
     let newPlay = false
-
-    allNotes = { ...noNotes, ...songs[e.target.name].notes }
+    
+    allNotes = { ...songs[e.target.name].notes }
     const notes = Object.keys(allNotes)
     
     if (id === songs[e.target.name].id){
@@ -42,8 +41,8 @@ export default function SongIndex() {
       await Tone.Transport.clear(transportEventId.current)
       
     }
-
-
+    
+    
     if (newPlay) {
       const repeat = (time) => {
         const step = stepper % 16
@@ -54,12 +53,12 @@ export default function SongIndex() {
         })
         stepper++
       }
-
+      
       const eventId = await Tone.Transport.scheduleRepeat(repeat, '8n')
-      setSongId(eventId)
       Tone.Transport.bpm.value = songs[e.target.name].tempo
       transportEventId.current = eventId
-
+      setSongId(transportEventId.current)
+      
       await Tone.Time('1m')
       await Tone.Transport.start()
     } 
@@ -75,7 +74,7 @@ export default function SongIndex() {
             <div className="song-card" key={song.id}>
               <h3>{song.name}</h3>
               <h4>Created by: {song.owner.username}</h4>
-              <h4>Likes: {song.likes}</h4>
+              <h4>Likes: {song.likedBy.length}</h4>
               <button name={index} onClick={playSong}>
                 {id === song.id ? 'Stop' : 'Play'}
               </button>
