@@ -14,6 +14,7 @@ export default function Grid() {
   const history = useHistory()
   const [isSaving, setIsSaving] = useState(false)
   let stepper = 0
+  const [whichBox, setWhichBox] = useState(stepper % 16)
   const transportEventId = useRef(null)
   // const [songStarted, setSongStarted] = useState(false)
   const [numberOfActive, setNumberOfActive] = useState(0)
@@ -34,9 +35,9 @@ export default function Grid() {
   if (numberOfActive) synths.volume.value = 1 / numberOfActive
 
   const notes = Object.keys(allNotes)
-
   const repeat = (time) => {
     const step = stepper % 16
+    setWhichBox(step)
     notes.forEach((note) => {
       if (allNotes[note][step]) {
         synths.triggerAttackRelease(note, '8n', time)
@@ -96,7 +97,7 @@ export default function Grid() {
         <h1>Grid Stuff</h1>
         {notes.map(note => {
           return (
-            <IndividualButton key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} setNumberOfActive={setNumberOfActive} numberOfActive={numberOfActive} isPlaying={isPlaying} synth={synths} />
+            <IndividualButton key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} setNumberOfActive={setNumberOfActive} numberOfActive={numberOfActive} isPlaying={isPlaying} synth={synths} step={whichBox}/>
           )
         })}
         <button className="play-button" onClick={handlePlay}>{!isPlaying ? 'Play' : 'Stop'}</button>

@@ -99,6 +99,9 @@
   border: 1px solid black;
 }
 
+.isPlaying {
+  transform: scale(0.8);
+}
 @import 
 'nav',
 'saveSong'
