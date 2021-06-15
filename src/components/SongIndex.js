@@ -2,6 +2,7 @@ import React from 'react'
 import * as Tone from 'tone'
 import { getAllSongs } from '../lib/api'
 import noNotes from '../hooks/noNotes'
+import { setSongId } from '../lib/auth'
 
 export default function SongIndex() {
   const [songs, setSongs] = React.useState(null)
@@ -55,6 +56,7 @@ export default function SongIndex() {
       }
 
       const eventId = await Tone.Transport.scheduleRepeat(repeat, '8n')
+      setSongId(eventId)
       Tone.Transport.bpm.value = songs[e.target.name].tempo
       transportEventId.current = eventId
 
