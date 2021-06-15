@@ -45,4 +45,32 @@
   align-items: center;
 }
 
+.grid-parent{
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+
+.grid{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.play-button{
+  padding: 8px;
+}
+
+.testDiv{
+  display: flex;
+}
+
+.music-button{
+  flex: 1;
+  padding: 0.5em;
+}
+
 @import 'nav'

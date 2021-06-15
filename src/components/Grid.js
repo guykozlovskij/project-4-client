@@ -81,17 +81,19 @@ export default function Grid() {
 
   }
   return (
-    <div>
-      <h1>Grid Stuff</h1>
-      {notes.map(note => {
-        return (
-          <IndividualDiv key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} setNumberOfActive={setNumberOfActive} numberOfActive={numberOfActive} />
-        )
-      })}
-      <button onClick={handlePlay}>{!isPlaying ? 'Play' : 'Stop'}</button>
-      <input type='range' min='10' max='200' value={bpm} onChange={handleBpm} />
-      <button onClick={handleClear}>Clear notes</button>
-      <h3>{bpm}</h3>
-    </div>
+    <section className="grid-parent">
+      <div className="grid">
+        <h1>Grid Stuff</h1>
+        {notes.map(note => {
+          return (
+            <IndividualDiv key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} setNumberOfActive={setNumberOfActive} numberOfActive={numberOfActive} />
+          )
+        })}
+        <button className="play-button" onClick={handlePlay}>{!isPlaying ? 'Play' : 'Stop'}</button>
+        <button onClick={handleClear}>Clear notes</button>
+        <input type='range' min='10' max='200' value={bpm} onChange={handleBpm} />
+        <h3>{bpm}</h3>
+      </div>
+    </section>
   )
 }
