@@ -6,8 +6,6 @@ import noNotes from '../hooks/noNotes'
 export default function SongIndex() {
   const [songs, setSongs] = React.useState(null)
   const [isPlaying, setIsPlaying] = React.useState(false)
-  const [allNotes, setAllNotes] = React.useState(noNotes)
-  const [numberOfActive, setNumberOfActive] = React.useState(0)
   const transportEventId = React.useRef(null)
   let stepper = 0
   const gain = new Tone.Gain(0.1)
@@ -28,35 +26,32 @@ export default function SongIndex() {
 
 
   const synths = new Tone.PolySynth().connect(gain)
+  let allNotes
 
-  if (numberOfActive) synths.volume.value = 1 / numberOfActive
 
-  const notes = Object.keys(allNotes)
-
-  const repeat = (time) => {
-    const step = stepper % 16
-    notes.forEach((note) => {
-      if (allNotes[note][step]) {
-        console.log('Inside Function')
-        console.log(1 / numberOfActive)
-        console.log(numberOfActive)
-
-        synths.triggerAttackRelease(note, '8n', time)
-      }
-    })
-    stepper++
-  }
+  
 
 
 
   const playSong = async (e) => {
-    setAllNotes({ ...noNotes, ...songs[e.target.name].notes })
+    allNotes = { ...noNotes, ...songs[e.target.name].notes }
+    const notes = Object.keys(allNotes)
 
-    console.log('button is pressed')
     if (!isPlaying) {
+      const repeat = (time) => {
+        const step = stepper % 16
+        notes.forEach((note) => {
+          if (allNotes[note][step]) {
+            synths.triggerAttackRelease(note, '8n', time)
+          }
+        })
+        stepper++
+      }
+      
       const eventId = await Tone.Transport.scheduleRepeat(repeat, '8n')
       Tone.Transport.bpm.value = songs[e.target.name].tempo 
       transportEventId.current = eventId
+
       await Tone.Time('1m')
       await Tone.Transport.start()
       setIsPlaying(!isPlaying)
@@ -85,7 +80,7 @@ export default function SongIndex() {
               <h4>Created by: {song.owner.username}</h4>
               <h4>Likes: {song.likes}</h4>
               <button name={index} onClick={playSong}>
-                Play
+                {isPlaying ? 'Stop' : 'Play'}
               </button>
             </div>
           )
