@@ -5,7 +5,6 @@ import noNotes from '../hooks/noNotes'
 
 export default function SongIndex() {
   const [songs, setSongs] = React.useState(null)
-  const [isPlaying, setIsPlaying] = React.useState(false)
   const [id, setId] = React.useState(null)
   const transportEventId = React.useRef(null)
   let stepper = 0
@@ -30,6 +29,8 @@ export default function SongIndex() {
   let allNotes
 
   const playSong = async (e) => {
+    await Tone.Transport.stop()
+    await Tone.Transport.clear(transportEventId.current)
     let newPlay = false
 
     allNotes = { ...noNotes, ...songs[e.target.name].notes }
@@ -47,7 +48,7 @@ export default function SongIndex() {
       
     
 
-    if (!isPlaying || newPlay) {
+    if (newPlay) {
       const repeat = (time) => {
         const step = stepper % 16
         notes.forEach((note) => {
@@ -66,17 +67,9 @@ export default function SongIndex() {
 
       await Tone.Time('1m')
       await Tone.Transport.start()
-      setIsPlaying(!isPlaying)
 
 
-    } else {
-      await Tone.Transport.stop()
-      await Tone.Transport.clear(transportEventId.current)
-      // await Tone.Transport.dispose()
-      setIsPlaying(!isPlaying)
-
-
-    }
+    } 
   }
 
 
