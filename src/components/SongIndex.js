@@ -3,6 +3,7 @@ import * as Tone from 'tone'
 import { getAllSongs } from '../lib/api'
 import { isAuthenticated, setSongId } from '../lib/auth'
 import Like from './common/LikeButton'
+
 export default function SongIndex() {
   const [songs, setSongs] = React.useState(null)
   const [id, setId] = React.useState(null)
@@ -107,17 +108,27 @@ export default function SongIndex() {
         }))}
       </section>
       {expandingId &&
-        <div className="expanded-view">
-          {songs[expandingId].comments.map(comment => {
-            return (
-              <div key={comment.id} className="comment-div">
-                <h5>{comment.owner.username}</h5>
-                <h4>{comment.content}</h4>
-              </div>
-            )
-          })}
-          <button onClick={handleExpand}>Close</button>
-        </div>}
+        <>
+          <div className="expanded-view">
+            <h1>{songs[expandingId].name}</h1>
+            <h2>Created by: {songs[expandingId].owner.username}</h2>
+            <h2>Likes :{songs[expandingId].likedBy.length}</h2>
+            <button name={expandingId} onClick={playSong}>
+              {id === songs[expandingId].id ? 'Stop' : 'Play'}
+            </button>
+            {isAuthenticated() && <Like id={songs[expandingId].id} setUpdate={setUpdate} update={update} />}
+            <h3>Comments: </h3>
+            {songs[expandingId].comments.map(comment => {
+              return (
+                <div key={comment.id} className="comment-div">
+                  <h5>{comment.owner.username}</h5>
+                  <h4>{comment.content}</h4>
+                </div>
+              )
+            })}
+            <button onClick={handleExpand}>Close</button>
+          </div>
+        </>}
     </section >
   )
 }
