@@ -1,8 +1,9 @@
 import React from 'react'
 import * as Tone from 'tone'
-import { getAllSongs } from '../lib/api'
-import { isAuthenticated, setSongId, getSelect, setSelect, getPayload } from '../lib/auth'
-import Like from './common/LikeButton'
+import { isAuthenticated, setSongId, getSelect, setSelect, getPayload } from '../../lib/auth'
+import Like from '../common/LikeButton'
+import { getAllSongs } from '../../lib/api'
+import Expanding from './Expanding'
 
 function filteredSongs(songs, filter) {
   const { sub } = getPayload()
@@ -21,6 +22,8 @@ function filteredSongs(songs, filter) {
   })
   return beenFiltered.sort((a, b) => a.name.localeCompare(b.name))
 }
+
+
 
 export default function SongIndex() {
   const [songs, setSongs] = React.useState(null)
@@ -41,6 +44,7 @@ export default function SongIndex() {
     }
     getData()
   }, [update])
+
 
 
   const synths = new Tone.PolySynth().connect(gain)
@@ -76,6 +80,7 @@ export default function SongIndex() {
         stepper++
       }
 
+
       const eventId = await Tone.Transport.scheduleRepeat(repeat, '8n')
       Tone.Transport.bpm.value = filteredSongs(songs,filter)[e.target.name].tempo
       transportEventId.current = eventId
@@ -90,19 +95,17 @@ export default function SongIndex() {
   const handleExpand = async (e) => {
     setExpandingId(e.target.name)
   }
-  const handleChange = (e) => {
+
+  
+  const handleFilter = (e) => {
     setFilter(e.target.value)
   }
+
 
   return (
     <section className="song-index-page">
       <h1>Songs</h1>
-      <input type='text' onChange={handleChange}/>
-      {/* <select id='select' value={getSelect()} onChange={handleChange}>
-        <option>All</option>
-        <option>Your Songs</option>
-        <option>Liked Songs</option>
-      </select> */}
+      <input type='text' onChange={handleFilter}/>
       <section className="song-grid">
         {songs && (filteredSongs(songs, filter).map((song, index) => {
           return (
@@ -120,18 +123,7 @@ export default function SongIndex() {
           )
         }))}
       </section>
-      {expandingId &&
-        <div className="expanded-view">
-          {songs[expandingId].comments.map(comment => {
-            return (
-              <div key={comment.id} className="comment-div">
-                <h5>{comment.owner.username}</h5>
-                <h4>{comment.content}</h4>
-              </div>
-            )
-          })}
-          <button onClick={handleExpand}>Close</button>
-        </div>}
+      {expandingId && <Expanding songs={filteredSongs(songs, filter)} expandingId={expandingId} playSong={playSong} id={id} setUpdate={setUpdate} update={update} handleExpand={handleExpand} />}
     </section >
   )
 }

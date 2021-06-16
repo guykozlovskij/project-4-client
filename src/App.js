@@ -4,7 +4,7 @@ import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Nav from './components/common/Nav'
 import MakeSong from './components/MakeSong'
-import SongIndex from './components/SongIndex'
+import SongIndex from './components/index/SongIndex'
 
 function App() {
   
