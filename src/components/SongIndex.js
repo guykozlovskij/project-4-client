@@ -88,16 +88,16 @@ export default function SongIndex() {
   }
 
 
-  const { formdata, handleChange } = useForm({
+  const { formData, handleChange } = useForm({
     content: '',
   })
 
 
   const handleAddComment = async (event) => {
     event.preventDefault()
-    formdata.owner = sub
+    formData.owner = sub
     try {
-      await addCommentToSong(formdata, event.target.id)
+      await addCommentToSong(formData, event.target.id)
       setUpdate(!update)
     } catch (err) {
       if (err.repsonse) {
@@ -170,19 +170,21 @@ export default function SongIndex() {
                 )
               })}
             </div>
-            <section className="add-comment">
-              <form id={songs[expandingId].id} onSubmit={handleAddComment}>
-                <input
-                  className="input"
-                  type="input"
-                  placeholder="Add a comment"
-                  name="content"
-                  value={formdata.content}
-                  onChange={handleChange}
-                />
-                <button type="submit">Add a comment</button>
-              </form>
-            </section>
+            {isAuthenticated() &&
+              <section className="add-comment">
+                <form id={songs[expandingId].id} onSubmit={handleAddComment}>
+                  <input
+                    className="input"
+                    type="input"
+                    placeholder="Add a comment"
+                    name="content"
+                    value={formData.content}
+                    onChange={handleChange}
+                  />
+                  <button type="submit">Add a comment</button>
+                </form>
+              </section>
+            }
             <button onClick={handleExpand}>Close</button>
           </div>
         </>}
