@@ -14,7 +14,7 @@ export default function Grid() {
   const history = useHistory()
   const [isSaving, setIsSaving] = useState(false)
   let stepper = 0
-  // const [whichBox, setWhichBox] = useState(0)
+  const [whichBox, setWhichBox] = useState(0)
   const transportEventId = useRef(null)
   const [numberOfActive, setNumberOfActive] = useState(0)
   const [allNotes, setAllNotes] = useState(noNotes)
@@ -35,7 +35,8 @@ export default function Grid() {
   const notes = Object.keys(allNotes)
   const repeat = (time) => {
     const step = stepper % 16
-    // setWhichBox(step)
+    console.log('step', step)
+    setWhichBox(step)
     notes.forEach((note) => {
       if (allNotes[note][step]) {
         synths.triggerAttackRelease(note, '8n', time)
@@ -44,7 +45,7 @@ export default function Grid() {
     stepper++
   }
 
-
+  console.log('stepper', stepper)
   const handlePlay = async () => {
     if (!isPlaying) {
 
@@ -61,7 +62,7 @@ export default function Grid() {
     } else {
       await Tone.Transport.stop()
       await Tone.Transport.clear(transportEventId.current)
-      // await Tone.Transport.dispose()
+      await Tone.Transport.dispose()
       setIsPlaying(!isPlaying)
 
     }
@@ -95,7 +96,7 @@ export default function Grid() {
         {notes.map(note => {
           return (
             <IndividualButton key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} setNumberOfActive={setNumberOfActive} numberOfActive={numberOfActive} isPlaying={isPlaying} synth={synths}
-              // step={whichBox}
+              step={whichBox}
             />
           )
         })}

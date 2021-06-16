@@ -29,3 +29,7 @@ export function createSong(formData) {
 export function getAllSongs(){
   return axios.get(`${baseUrl}/songs/`)
 }
+
+export function likeSong(id) {
+  return axios.post(`${baseUrl}/songs/${id}/like/`, '', headers())
+}
