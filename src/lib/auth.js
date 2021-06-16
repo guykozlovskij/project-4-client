@@ -32,6 +32,14 @@ export function getSongId() {
   return window.localStorage.getItem('eventId')
 }
 
+export function setSelect(select) {
+  window.localStorage.setItem('select', select)
+}
+
+export function getSelect() {
+  return window.localStorage.getItem('select')
+}
+
 export function getPayload() {
   const token = getToken()
   if (!token) return false

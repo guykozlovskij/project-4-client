@@ -1,20 +1,38 @@
 import React from 'react'
 import * as Tone from 'tone'
 import { getAllSongs } from '../lib/api'
-import { isAuthenticated, setSongId } from '../lib/auth'
+import { isAuthenticated, setSongId, getSelect, setSelect, getPayload } from '../lib/auth'
 import Like from './common/LikeButton'
+
+function filteredSongs(songs, filter) {
+  const { sub } = getPayload()
+  const beenFiltered = songs.filter(song => {
+    let found = false
+    if (getSelect() === 'All Songs') found = true
+    if (getSelect() === 'Your Songs') {
+      found = song.owner.id === sub
+    }
+    if (getSelect() === 'Liked Songs') {
+      found = song.likedBy.some(like => like.id === sub)
+    }
+    return (
+      song.name.toLowerCase().includes(filter.toLowerCase()) && found
+    )
+  })
+  return beenFiltered.sort((a, b) => a.name.localeCompare(b.name))
+}
+
 export default function SongIndex() {
   const [songs, setSongs] = React.useState(null)
   const [id, setId] = React.useState(null)
   const [expandingId, setExpandingId] = React.useState(null)
-
-
   const transportEventId = React.useRef(null)
   const [update, setUpdate] = React.useState(false)
   let stepper = 0
+  const [filter, setFilter] = React.useState('')
   const gain = new Tone.Gain(0.1)
   gain.toDestination()
-
+  if (!getSelect()) setSelect('All')
 
   React.useEffect(() => {
     const getData = async () => {
@@ -33,14 +51,14 @@ export default function SongIndex() {
     await Tone.Transport.clear(transportEventId.current)
     let newPlay = false
 
-    allNotes = { ...songs[e.target.name].notes }
+    allNotes = { ...filteredSongs(songs,filter)[e.target.name].notes }
     const notes = Object.keys(allNotes)
 
-    if (id === songs[e.target.name].id) {
+    if (id === filteredSongs(songs,filter)[e.target.name].id) {
       setId(null)
     } else {
       newPlay = true
-      setId(songs[e.target.name].id)
+      setId(filteredSongs(songs,filter)[e.target.name].id)
       await Tone.Transport.stop()
       await Tone.Transport.clear(transportEventId.current)
 
@@ -59,7 +77,7 @@ export default function SongIndex() {
       }
 
       const eventId = await Tone.Transport.scheduleRepeat(repeat, '8n')
-      Tone.Transport.bpm.value = songs[e.target.name].tempo
+      Tone.Transport.bpm.value = filteredSongs(songs,filter)[e.target.name].tempo
       transportEventId.current = eventId
       setSongId(transportEventId.current)
 
@@ -67,30 +85,26 @@ export default function SongIndex() {
       await Tone.Transport.start()
     }
   }
-  if (document.getElementById('select')) {
-    const select = document.getElementById('select')
-    console.log(select.value)
-  }
-  if (songs) {
-    songs.sort((a, b) => a.name.localeCompare(b.name))
-  }
-
+  
 
   const handleExpand = async (e) => {
     setExpandingId(e.target.name)
   }
-
+  const handleChange = (e) => {
+    setFilter(e.target.value)
+  }
 
   return (
     <section className="song-index-page">
       <h1>Songs</h1>
-      <select id='select'>
+      <input type='text' onChange={handleChange}/>
+      {/* <select id='select' value={getSelect()} onChange={handleChange}>
         <option>All</option>
-        <option >Your Songs</option>
-        <option selected>Liked Songs</option>
-      </select>
+        <option>Your Songs</option>
+        <option>Liked Songs</option>
+      </select> */}
       <section className="song-grid">
-        {songs && (songs.map((song, index) => {
+        {songs && (filteredSongs(songs, filter).map((song, index) => {
           return (
             <div className="song-card" key={song.id}>
               <h3>{song.name}</h3>

@@ -21,7 +21,6 @@ export default function Grid() {
   const gain = new Tone.Gain(0.1)
   gain.toDestination()
   const synths = new Tone.PolySynth().connect(gain)
-
   useEffect(() => {
     if (window.localStorage.getItem('savedSong')) {
       const savedSong = getSavedSong()
@@ -35,7 +34,7 @@ export default function Grid() {
   const notes = Object.keys(allNotes)
   const repeat = (time) => {
     const step = stepper % 16
-    console.log('step', step)
+    // console.log('step', step)
     setWhichBox(step)
     notes.forEach((note) => {
       if (allNotes[note][step]) {
@@ -44,8 +43,8 @@ export default function Grid() {
     })
     stepper++
   }
-
   console.log('stepper', stepper)
+  console.log('yes')
   const handlePlay = async () => {
     if (!isPlaying) {
 

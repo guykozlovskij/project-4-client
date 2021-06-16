@@ -1,6 +1,6 @@
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getPayload, getSongId, isAuthenticated, removeToken } from '../../lib/auth'
+import { getPayload, getSongId, isAuthenticated, removeToken, setSelect } from '../../lib/auth'
 import { getUser } from '../../lib/api'
 import * as Tone from 'tone'
 
@@ -29,8 +29,9 @@ export default function Nav() {
     getData()
   }, [location.pathname, sub])
 
-  const handleClick = () => {
+  const handleClick = (e) => {
     setNavbarClicked(!navbarClicked)
+    if (e.target.name === 'updateStorage') setSelect(e.target.innerHTML)
   }
   const handleLogout = () => {
     setNavbarClicked(!navbarClicked)
@@ -50,9 +51,9 @@ export default function Nav() {
           <img src={user.profileImage} alt={user.username} />
           <h3>{user.username}</h3>
           <div className='mainLinks'>
-            <Link className='navLink' onClick={handleClick} to='/'>Your Songs</Link>
-            <Link className='navLink' onClick={handleClick} to='/'>Liked Songs</Link>
-            <Link className='navLink' onClick={handleClick} to='/songs'>All Songs</Link>
+            <Link name='updateStorage' className='navLink' onClick={handleClick} to='/songs'>Your Songs</Link>
+            <Link name='updateStorage' className='navLink' onClick={handleClick} to='/songs'>Liked Songs</Link>
+            <Link name='updateStorage' className='navLink' onClick={handleClick} to='/songs'>All Songs</Link>
             <Link className='navLink' onClick={handleClick} to='/'>Make a song</Link>
           </div>
         </div>}
