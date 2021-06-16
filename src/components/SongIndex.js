@@ -2,11 +2,14 @@ import React from 'react'
 import * as Tone from 'tone'
 import { getAllSongs } from '../lib/api'
 import noNotes from '../hooks/noNotes'
-import { setSongId } from '../lib/auth'
+
 
 export default function SongIndex() {
   const [songs, setSongs] = React.useState(null)
   const [id, setId] = React.useState(null)
+  const [isExpanding, setIsExpanding] = React.useState(null)
+
+
   const transportEventId = React.useRef(null)
   let stepper = 0
   const gain = new Tone.Gain(0.1)
@@ -32,15 +35,15 @@ export default function SongIndex() {
 
     allNotes = { ...noNotes, ...songs[e.target.name].notes }
     const notes = Object.keys(allNotes)
-    
-    if (id === songs[e.target.name].id){
+
+    if (id === songs[e.target.name].id) {
       setId(null)
     } else {
       newPlay = true
       setId(songs[e.target.name].id)
       await Tone.Transport.stop()
       await Tone.Transport.clear(transportEventId.current)
-      
+
     }
 
 
@@ -56,16 +59,20 @@ export default function SongIndex() {
       }
 
       const eventId = await Tone.Transport.scheduleRepeat(repeat, '8n')
-      setSongId(eventId)
       Tone.Transport.bpm.value = songs[e.target.name].tempo
       transportEventId.current = eventId
 
       await Tone.Time('1m')
       await Tone.Transport.start()
-    } 
+    }
   }
 
-  
+
+  const handleExpand = async () => {
+    setIsExpanding(!isExpanding)
+  }
+
+
   return (
     <section className="song-index-page">
       <h1>Songs</h1>
@@ -79,10 +86,24 @@ export default function SongIndex() {
               <button name={index} onClick={playSong}>
                 {id === song.id ? 'Stop' : 'Play'}
               </button>
+              <button name={index} onClick={handleExpand}>EXPAND</button>
+
             </div>
           )
         }))}
       </section>
+      {isExpanding &&
+        <div className="expanded-view">
+          {songs[index].comments.map(comment => {
+            return (
+              <div key={comment.id} className="comment-div">
+                <h5>{comment.owner.username}</h5>
+                <h4>{comment.content}</h4>
+              </div>
+            )
+          })}
+          <button onClick={handleExpand}>Close</button>
+        </div>}
     </section >
   )
 }

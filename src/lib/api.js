@@ -29,3 +29,8 @@ export function createSong(formData) {
 export function getAllSongs(){
   return axios.get(`${baseUrl}/songs/`)
 }
+
+//? Comment Requests 
+export function createComment(){
+  return axios.post
+}
