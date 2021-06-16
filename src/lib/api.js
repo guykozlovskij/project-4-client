@@ -33,3 +33,8 @@ export function getAllSongs(){
 export function likeSong(id) {
   return axios.post(`${baseUrl}/songs/${id}/like/`, '', headers())
 }
+
+//? Comment Requests 
+// export function createComment(){
+//   return axios.post
+// }

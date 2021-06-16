@@ -3,10 +3,12 @@ import * as Tone from 'tone'
 import { getAllSongs } from '../lib/api'
 import { isAuthenticated, setSongId } from '../lib/auth'
 import Like from './common/LikeButton'
-
 export default function SongIndex() {
   const [songs, setSongs] = React.useState(null)
   const [id, setId] = React.useState(null)
+  const [expandingId, setExpandingId] = React.useState(null)
+
+
   const transportEventId = React.useRef(null)
   const [update, setUpdate] = React.useState(false)
   let stepper = 0
@@ -72,6 +74,13 @@ export default function SongIndex() {
   if (songs) {
     songs.sort((a, b) => a.name.localeCompare(b.name))
   }
+
+
+  const handleExpand = async (e) => {
+    setExpandingId(e.target.name)
+  }
+
+
   return (
     <section className="song-index-page">
       <h1>Songs</h1>
@@ -91,10 +100,24 @@ export default function SongIndex() {
                 {id === song.id ? 'Stop' : 'Play'}
               </button>
               {isAuthenticated() && <Like id={song.id} setUpdate={setUpdate} update={update} />}
+              <button name={index} onClick={handleExpand}>EXPAND</button>
+
             </div>
           )
         }))}
       </section>
+      {expandingId &&
+        <div className="expanded-view">
+          {songs[expandingId].comments.map(comment => {
+            return (
+              <div key={comment.id} className="comment-div">
+                <h5>{comment.owner.username}</h5>
+                <h4>{comment.content}</h4>
+              </div>
+            )
+          })}
+          <button onClick={handleExpand}>Close</button>
+        </div>}
     </section >
   )
 }
