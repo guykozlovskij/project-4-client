@@ -1,15 +1,14 @@
 import React from 'react'
 import * as Tone from 'tone'
 import useForm from '../hooks/useForm'
-import { getAllSongs, addCommentToSong } from '../lib/api'
-import { getPayload, isAuthenticated, setSongId } from '../lib/auth'
+import { getAllSongs, addCommentToSong, deleteCommentInSong } from '../lib/api'
+import { getPayload, isAuthenticated, setSongId, isOwner } from '../lib/auth'
 import Like from './common/LikeButton'
 
 export default function SongIndex() {
   const [songs, setSongs] = React.useState(null)
   const [id, setId] = React.useState(null)
   const [expandingId, setExpandingId] = React.useState(null)
-  const [submit, setSubmit] = React.useState(false)
   const { sub } = getPayload()
 
 
@@ -97,13 +96,8 @@ export default function SongIndex() {
   const handleAddComment = async (event) => {
     event.preventDefault()
     formdata.owner = sub
-    console.log(formdata)
-
-    console.log('here')
     try {
       await addCommentToSong(formdata, event.target.id)
-
-      setSubmit(!submit)
       setUpdate(!update)
     } catch (err) {
       if (err.repsonse) {
@@ -112,9 +106,19 @@ export default function SongIndex() {
         console.log(err)
       }
     }
-
   }
-  console.log(formdata)
+
+  const handleDeleteComment = async (event) => {
+    const commentId = event.target.value
+    console.log('comment', commentId)
+    try {
+      await deleteCommentInSong(event.target.name, commentId)
+      setUpdate(!update)
+    } catch (err) {
+      console.log(err?.response.data)
+    }
+  }
+
 
   return (
     <section className="song-index-page">
@@ -157,6 +161,11 @@ export default function SongIndex() {
                   <div key={comment.id} className="comment-div">
                     <h5>{comment.owner.username}</h5>
                     <h4>{comment.content}</h4>
+                    {isOwner(comment.owner.id) &&
+                      <span>
+                        <button name={songs[expandingId].id} value={comment.id} onClick={handleDeleteComment}>Delete</button>
+                      </span>
+                    }
                   </div>
                 )
               })}

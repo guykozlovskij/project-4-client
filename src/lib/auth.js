@@ -46,3 +46,9 @@ export function isAuthenticated() {
   const now = Math.round(Date.now() / 1000)
   return now < payload.exp
 }
+
+export function isOwner(userId) {
+  const payload = getPayload()
+  if (!payload) return false
+  return userId === payload.sub
+}

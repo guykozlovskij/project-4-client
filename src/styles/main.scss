@@ -119,7 +119,17 @@
 .comment-scroll {
   margin-top: 10px;
   overflow-y: scroll;
-  max-height: 100px;
+  max-height: 180px;
+  width: 80%;
+}
+
+.comment-scroll div {
+  background-color: rgb(174, 174, 179);
+  color: white;
+  padding: 8px;
+  margin: 5px;
+  width: 100%;
+  
 }
 
 @import 
