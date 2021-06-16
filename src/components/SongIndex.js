@@ -1,13 +1,18 @@
 import React from 'react'
 import * as Tone from 'tone'
-import { getAllSongs } from '../lib/api'
-import { isAuthenticated, setSongId } from '../lib/auth'
+import useForm from '../hooks/useForm'
+import { getAllSongs, addCommentToSong } from '../lib/api'
+import { getPayload, isAuthenticated, setSongId } from '../lib/auth'
 import Like from './common/LikeButton'
 
 export default function SongIndex() {
   const [songs, setSongs] = React.useState(null)
   const [id, setId] = React.useState(null)
   const [expandingId, setExpandingId] = React.useState(null)
+  const [submit, setSubmit] = React.useState(false)
+  const { sub } = getPayload()
+
+
 
 
   const transportEventId = React.useRef(null)
@@ -24,6 +29,7 @@ export default function SongIndex() {
     }
     getData()
   }, [update])
+
 
 
   const synths = new Tone.PolySynth().connect(gain)
@@ -77,10 +83,38 @@ export default function SongIndex() {
   }
 
 
+
   const handleExpand = async (e) => {
     setExpandingId(e.target.name)
   }
 
+
+  const { formdata, handleChange } = useForm({
+    content: '',
+  })
+
+
+  const handleAddComment = async (event) => {
+    event.preventDefault()
+    formdata.owner = sub
+    console.log(formdata)
+
+    console.log('here')
+    try {
+      await addCommentToSong(formdata, event.target.id)
+
+      setSubmit(!submit)
+      setUpdate(!update)
+    } catch (err) {
+      if (err.repsonse) {
+        console.log(err.repsonse.data)
+      } else {
+        console.log(err)
+      }
+    }
+
+  }
+  console.log(formdata)
 
   return (
     <section className="song-index-page">
@@ -126,6 +160,19 @@ export default function SongIndex() {
                 </div>
               )
             })}
+            <section className="add-comment">
+              <form id={songs[expandingId].id} onSubmit={handleAddComment}>
+                <input
+                  className="input"
+                  type="input"
+                  placeholder="Add a comment"
+                  name="content"
+                  value={formdata.content}
+                  onChange={handleChange}
+                />
+                <button type="submit">Add a comment</button>
+              </form>
+            </section>
             <button onClick={handleExpand}>Close</button>
           </div>
         </>}
