@@ -115,6 +115,13 @@
 .isPlaying {
   transform: scale(0.8);
 }
+
+.comment-scroll {
+  margin-top: 10px;
+  overflow-y: scroll;
+  max-height: 100px;
+}
+
 @import 
 'nav',
 'saveSong'

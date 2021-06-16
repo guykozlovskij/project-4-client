@@ -151,15 +151,16 @@ export default function SongIndex() {
               {id === songs[expandingId].id ? 'Stop' : 'Play'}
             </button>
             {isAuthenticated() && <Like id={songs[expandingId].id} setUpdate={setUpdate} update={update} />}
-            <h3>Comments: </h3>
-            {songs[expandingId].comments.map(comment => {
-              return (
-                <div key={comment.id} className="comment-div">
-                  <h5>{comment.owner.username}</h5>
-                  <h4>{comment.content}</h4>
-                </div>
-              )
-            })}
+            <div className="comment-scroll">
+              {songs[expandingId].comments.map(comment => {
+                return (
+                  <div key={comment.id} className="comment-div">
+                    <h5>{comment.owner.username}</h5>
+                    <h4>{comment.content}</h4>
+                  </div>
+                )
+              })}
+            </div>
             <section className="add-comment">
               <form id={songs[expandingId].id} onSubmit={handleAddComment}>
                 <input
