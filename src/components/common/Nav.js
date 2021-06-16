@@ -17,7 +17,7 @@ export default function Nav() {
     const getData = async () => {
       if (getSongId()) {
         await Tone.Transport.stop()
-        await Tone.Transport.clear(getSongId().eventId)
+        await Tone.Transport.clear(getSongId())
       }
       try {
         const { data } = await getUser(sub)

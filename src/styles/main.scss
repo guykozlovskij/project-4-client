@@ -112,6 +112,9 @@
   color: whitesmoke;
 }
 
+.isPlaying {
+  transform: scale(0.8);
+}
 @import 
 'nav',
 'saveSong'
