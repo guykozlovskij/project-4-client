@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import IndividualButton from './IndividualButton.js'
 import * as Tone from 'tone'
 import noNotes from '../hooks/noNotes.js'
@@ -9,27 +9,27 @@ import { useHistory } from 'react-router'
 
 
 export default function Grid() {
+  const savedSong = getSavedSong()
+  if (savedSong) Tone.Transport.bpm.value = savedSong.bpm
   const [isPlaying, setIsPlaying] = useState(false)
-  const [bpm, setBpm] = useState(120)
+  const [bpm, setBpm] = useState(savedSong ? savedSong.bpm : 120)
   const history = useHistory()
   const [isSaving, setIsSaving] = useState(false)
   let stepper = 0
   // const [whichBox, setWhichBox] = useState(0)
   const transportEventId = useRef(null)
-  const [numberOfActive, setNumberOfActive] = useState(0)
-  const [allNotes, setAllNotes] = useState(noNotes)
+  const [allNotes, setAllNotes] = useState(savedSong ? savedSong.allNotes : noNotes)
   const gain = new Tone.Gain(0.1)
   gain.toDestination()
   const synths = new Tone.PolySynth().connect(gain)
-  useEffect(() => {
-    if (window.localStorage.getItem('savedSong')) {
-      const savedSong = getSavedSong()
-      setAllNotes(savedSong.allNotes)
-      setNumberOfActive(savedSong.numberOfActive)
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (window.localStorage.getItem('savedSong')) {
+  //     const savedSong = getSavedSong()
+  //     setAllNotes(savedSong.allNotes)
+  //     setBpm(savedSong.bpm)
+  //   }
+  // }, [])
 
-  if (numberOfActive) synths.volume.value = 1 / numberOfActive
 
   const notes = Object.keys(allNotes)
   const repeat = (time) => {
@@ -82,7 +82,7 @@ export default function Grid() {
     setIsPlaying(false)
   }
   const handleSaveNotLoggedIn = async () => {
-    setSavedSong(allNotes, numberOfActive)
+    setSavedSong(allNotes, bpm)
     history.push('/login')
   }
   return (
@@ -91,7 +91,7 @@ export default function Grid() {
         <h1>Grid Stuff</h1>
         {notes.map(note => {
           return (
-            <IndividualButton key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} setNumberOfActive={setNumberOfActive} numberOfActive={numberOfActive} isPlaying={isPlaying} synth={synths}
+            <IndividualButton key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} isPlaying={isPlaying} synth={synths}
               // step={whichBox}
             />
           )
@@ -100,8 +100,7 @@ export default function Grid() {
         <button onClick={handleClear}>Clear notes</button>
         <input type='range' min='10' max='200' value={bpm} onChange={handleBpm} />
         <h3>{bpm}</h3>
-        {isAuthenticated() && numberOfActive > 0 && <button onClick={handleSave}>Save Song</button>}
-        {!isAuthenticated() && numberOfActive > 0 && <button onClick={handleSaveNotLoggedIn}>Save Song</button>}
+        <button onClick={isAuthenticated() ? handleSave : handleSaveNotLoggedIn}>Save Song</button>
       </div>
       {isSaving && <SaveSong bpm={bpm} allNotes={allNotes} handleSave={handleSave} />}
     </section>

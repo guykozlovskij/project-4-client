@@ -10,10 +10,10 @@ export function removeToken() {
   window.localStorage.removeItem('token')
 }
 
-export function setSavedSong(allNotes, numberOfActive) {
+export function setSavedSong(allNotes, bpm) {
   const savedSong = {
     allNotes: allNotes,
-    numberOfActive: numberOfActive,
+    bpm: bpm,
   }
   window.localStorage.setItem('savedSong', JSON.stringify(savedSong))
 }

@@ -37,7 +37,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
   }
 
   const handleCopy = () => {
-    setSavedSong(songs[expandingId].notes, 1)
+    setSavedSong(songs[expandingId].notes, songs[expandingId].tempo)
     history.push('/')
 
   }
