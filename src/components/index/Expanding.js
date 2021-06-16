@@ -1,10 +1,12 @@
+import { useHistory } from 'react-router'
 import useForm from '../../hooks/useForm'
 import { addCommentToSong, deleteCommentInSong } from '../../lib/api'
-import { getPayload, isAuthenticated, isOwner } from '../../lib/auth'
+import { getPayload, isAuthenticated, isOwner, setSavedSong } from '../../lib/auth'
 import Like from '../common/LikeButton'
 
 export default function Expanding({ songs, expandingId, playSong, id, setUpdate, update, handleExpand }) {
   const { sub } = getPayload()
+  const history = useHistory()
   const { formData, handleChange } = useForm({
     content: '',
   })
@@ -33,6 +35,13 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
       console.log(err?.response.data)
     }
   }
+
+  const handleCopy = () => {
+    setSavedSong(songs[expandingId].notes, 1)
+    history.push('/')
+
+  }
+
   return (
     <div className="expanded-view">
       <h1>{songs[expandingId].name}</h1>
@@ -73,6 +82,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
         </section>
       }
       <button onClick={handleExpand}>Close</button>
+      <button onClick={handleCopy}>Copy Song</button>
     </div>
   )
 }
