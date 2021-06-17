@@ -48,7 +48,9 @@ export default function Nav() {
       </div>
       <div className={`contents ${navbarClicked ? 'display' : ''}`}>
         {user && <div className='profileData'>
-          <img src={user.profileImage} alt={user.username} />
+          <div className='imageDiv'>
+            <img src={user.profileImage} alt={user.username} />
+          </div>
           <h3>{user.username}</h3>
           <div className='mainLinks'>
             <Link className='navLink' onClick={handleClick} to='/'>Make a song</Link>

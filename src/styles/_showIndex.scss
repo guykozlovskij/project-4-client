@@ -1,0 +1,62 @@
+.playAndLike{
+  margin: 10px 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.playButton {
+  background-color: transparent;
+  width: 0;
+  height: 36px;
+  border-style: solid;
+  border-width: 18px 0 18px 30px;
+  border-color: transparent transparent transparent #202020;
+  cursor: pointer;
+  will-change: border-width;
+  transition: all .2s ease;
+  
+}
+.pause {
+  border-style: double;
+  border-width: 0px 0 0px 30px;
+}
+.fas{
+  color: red;
+}
+.fa-heart:hover {
+  transition: all .25s ease-in-out;
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.expand {
+  width: 40px;
+  height: 40px;
+  background-color: #746d6d;
+  border-radius: 50%;
+  border-radius: 1px solid;
+  border-color: black;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
+}
+.expand::before, .expand::after {
+  content: '';
+  position: absolute;
+  height: 20px;
+  width: 5px;
+  background-color: whitesmoke;
+  transition: all .5s ease-in-out;
+}
+.expand::before{
+  transform: translateX(-2.5px) translateY(-10px);
+}
+.expand::after{
+  transform: rotate(90deg) translateX(-10px) translateY(2.5px);
+}
+.expand:hover{
+  transform: rotate(90deg);
+}
+// .expand::after {
+//   transform: rotate(90deg);
+// }
+

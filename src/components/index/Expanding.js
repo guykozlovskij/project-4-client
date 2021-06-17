@@ -102,10 +102,9 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
       <h2>Created by: {songs[expandingId].owner.username}</h2>
       <h2>Likes :{songs[expandingId].likedBy.length}</h2>
 
-      <button name={expandingId} onClick={playSong}>
-        {id === songs[expandingId].id ? 'Stop' : 'Play'}
+      <button className={`playButton ${id === songs[expandingId].id ? 'pause' : ''}`} name={expandingId} onClick={playSong}>
       </button>
-      {isAuthenticated() && <Like id={songs[expandingId].id} setUpdate={setUpdate} update={update} />}
+      {isAuthenticated() && <Like id={songs[expandingId].id} setUpdate={setUpdate} update={update} alreadyLiked={songs[expandingId].likedBy.some(like => like.id === sub)}/>}
       <div className="comment-scroll">
         {songs[expandingId].comments.map(comment => {
           return (

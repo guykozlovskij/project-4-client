@@ -1,7 +1,6 @@
 import { likeSong } from '../../lib/api'
 
-export default function Like({ id, update, setUpdate }) {
-
+export default function Like({ id, update, setUpdate, alreadyLiked }) {
   const handleClick = async () => {
     try {
       await likeSong(id)
@@ -13,6 +12,6 @@ export default function Like({ id, update, setUpdate }) {
   }
 
   return (
-    <button onClick={handleClick}>Like</button>
+    <i onClick={handleClick} className={`${alreadyLiked ? 'fas' : 'far'} fa-2x fa-heart`}></i >
   )
 }

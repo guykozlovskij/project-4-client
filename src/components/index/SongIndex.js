@@ -26,6 +26,7 @@ function filteredSongs(songs, filter) {
 
 
 export default function SongIndex() {
+  const { sub } = getPayload()
   const [songs, setSongs] = React.useState(null)
   const [id, setId] = React.useState(null)
   const [expandingId, setExpandingId] = React.useState(null)
@@ -55,14 +56,14 @@ export default function SongIndex() {
     await Tone.Transport.clear(transportEventId.current)
     let newPlay = false
 
-    allNotes = { ...filteredSongs(songs,filter)[e.target.name].notes }
+    allNotes = { ...filteredSongs(songs, filter)[e.target.name].notes }
     const notes = Object.keys(allNotes)
 
-    if (id === filteredSongs(songs,filter)[e.target.name].id) {
+    if (id === filteredSongs(songs, filter)[e.target.name].id) {
       setId(null)
     } else {
       newPlay = true
-      setId(filteredSongs(songs,filter)[e.target.name].id)
+      setId(filteredSongs(songs, filter)[e.target.name].id)
       await Tone.Transport.stop()
       await Tone.Transport.clear(transportEventId.current)
 
@@ -82,7 +83,7 @@ export default function SongIndex() {
 
 
       const eventId = await Tone.Transport.scheduleRepeat(repeat, '8n')
-      Tone.Transport.bpm.value = filteredSongs(songs,filter)[e.target.name].tempo
+      Tone.Transport.bpm.value = filteredSongs(songs, filter)[e.target.name].tempo
       transportEventId.current = eventId
       setSongId(transportEventId.current)
 
@@ -90,13 +91,13 @@ export default function SongIndex() {
       await Tone.Transport.start()
     }
   }
-  
+
 
   const handleExpand = async (e) => {
     setExpandingId(e.target.name)
   }
 
-  
+
   const handleFilter = (e) => {
     setFilter(e.target.value)
   }
@@ -105,25 +106,25 @@ export default function SongIndex() {
   return (
     <section className="song-index-page">
       <h1>Songs</h1>
-      <input type='text' onChange={handleFilter}/>
+      <input type='text' onChange={handleFilter} />
       <section className="song-grid">
         {songs && (filteredSongs(songs, filter).map((song, index) => {
           return (
             <div className="song-card" key={song.id}>
               <h3>{song.name}</h3>
-              <h4>Created by: {song.owner.username}</h4>
               <h4>Likes: {song.likedBy.length}</h4>
-              <button name={index} onClick={playSong}>
-                {id === song.id ? 'Stop' : 'Play'}
-              </button>
-              {isAuthenticated() && <Like id={song.id} setUpdate={setUpdate} update={update} />}
-              <button name={index} onClick={handleExpand}>EXPAND</button>
+              <div className='playAndLike'>
+                <button name={index} onClick={playSong} className={`playButton ${id === song.id ? 'pause' : ''}`}>
+                </button>
+                {isAuthenticated() && <Like id={song.id} setUpdate={setUpdate} update={update} alreadyLiked={song.likedBy.some(like => like.id === sub)}/>}
+              </div>
+              <button name={index} onClick={handleExpand} className='expand'></button>
 
             </div>
           )
         }))}
       </section>
-      {expandingId && <Expanding songs={filteredSongs(songs, filter)} expandingId={expandingId} playSong={playSong} id={id} setUpdate={setUpdate} update={update} handleExpand={handleExpand} setExpandingId={setExpandingId}/>}
+      {expandingId && <Expanding songs={filteredSongs(songs, filter)} expandingId={expandingId} playSong={playSong} id={id} setUpdate={setUpdate} update={update} handleExpand={handleExpand} setExpandingId={setExpandingId} />}
     </section >
   )
 }
