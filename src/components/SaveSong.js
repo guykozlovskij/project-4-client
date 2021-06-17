@@ -15,7 +15,6 @@ export default function SaveSong({ bpm, allNotes, handleSave }) {
       name: name,
       tempo: bpm,
       notes: allNotes,
-      likes: 0,
     }
     try {
       const { data } = await createSong(songToSubmit)
