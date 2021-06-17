@@ -62,6 +62,7 @@
 
 .play-button{
   padding: 8px;
+
 }
 
 .testDiv{
@@ -71,6 +72,8 @@
 .music-button{
   flex: 1;
   padding: 0.5em;
+  position: relative;
+  margin: 5px;
 }
 
 
@@ -113,8 +116,7 @@
 }
 
 .isPlaying {
-  // transform: scale(2.5);
-  background: yellow;
+  border-color: #04AA6D;
 }
 
 .comment-scroll {
@@ -131,6 +133,17 @@
   margin: 5px;
   width: 100%;
   
+} 
+
+.tracker-section{
+  display: flex;
+  flex-direction:row;
+}
+
+.tracker {
+  display: flex;
+  width: 38px;
+
 }
 
 @import 

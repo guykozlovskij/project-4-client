@@ -34,6 +34,8 @@ export function likeSong(id) {
   return axios.post(`${baseUrl}/songs/${id}/like/`, '', headers())
 }
 
+// export function deleteSongs
+
 //? Comment Requests 
 export function addCommentToSong(formdata, id){
   return axios.post(`${baseUrl}/songs/${id}/comments/`, formdata, headers())

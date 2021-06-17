@@ -16,12 +16,26 @@ export default function Grid() {
   const history = useHistory()
   const [isSaving, setIsSaving] = useState(false)
   let stepper = 0
-  // const [whichBox, setWhichBox] = useState(0)
+  const [whichBox, setWhichBox] = useState(0)
   const transportEventId = useRef(null)
   const [allNotes, setAllNotes] = useState(savedSong ? savedSong.allNotes : noNotes)
   const gain = new Tone.Gain(0.1)
   gain.toDestination()
   const synths = new Tone.PolySynth().connect(gain)
+
+  const synth2 = new Tone.PolySynth({
+    oscillator: {
+      type: 'sine',
+    },
+    envelope: {
+      attack: 0.001,
+      decay: 0.1,
+      sustain: 0.1,
+      release: 1.2,
+    },
+  }).connect(gain)
+
+
   // useEffect(() => {
   //   if (window.localStorage.getItem('savedSong')) {
   //     const savedSong = getSavedSong()
@@ -35,11 +49,13 @@ export default function Grid() {
   const repeat = (time) => {
     const step = stepper % 16
     // console.log('step', step)
-    // setWhichBox(step)
+    setWhichBox(step)
+
     notes.forEach((note) => {
       if (allNotes[note][step]) {
-        synths.triggerAttackRelease(note, '8n', time)
+        synth2.triggerAttackRelease(note, '8n', time)
       }
+
     })
     stepper++
   }
@@ -85,6 +101,11 @@ export default function Grid() {
     setSavedSong(allNotes, bpm)
     history.push('/login')
   }
+
+
+
+
+
   return (
     <section className="grid-parent">
       <div className="grid">
@@ -92,7 +113,7 @@ export default function Grid() {
         {notes.map(note => {
           return (
             <IndividualButton key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} isPlaying={isPlaying} synth={synths}
-              // step={whichBox}
+              step={whichBox}
             />
           )
         })}
