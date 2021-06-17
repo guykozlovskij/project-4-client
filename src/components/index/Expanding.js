@@ -1,11 +1,13 @@
+import React from 'react'
 import { useHistory } from 'react-router'
 import useForm from '../../hooks/useForm'
-import { addCommentToSong, deleteCommentInSong } from '../../lib/api'
+import { addCommentToSong, deleteCommentInSong, deleteSong } from '../../lib/api'
 import { getPayload, isAuthenticated, isOwner, setSavedSong } from '../../lib/auth'
 import Like from '../common/LikeButton'
 
 export default function Expanding({ songs, expandingId, playSong, id, setUpdate, update, handleExpand }) {
   const { sub } = getPayload()
+  const [isDeleting, setIsDeleting] = React.useState(false)
   const history = useHistory()
   const { formData, handleChange } = useForm({
     content: '',
@@ -25,6 +27,9 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
     }
   }
 
+
+
+
   const handleDeleteComment = async (event) => {
     const commentId = event.target.value
     console.log('comment', commentId)
@@ -42,11 +47,29 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
 
   }
 
+  const handleDeleteConfirmationWindow = async () => {
+    setIsDeleting(!isDeleting)
+    
+  }
+
+  const handleDeleteSong = async (event) => {
+    const songId = event.target.value
+    console.log('songId', songId)
+    try {
+      await deleteSong(songId)
+      history.push('/')
+    } catch (err) {
+      console.log(err?.response.data)
+    }
+  }
+
+
   return (
     <div className="expanded-view">
       <h1>{songs[expandingId].name}</h1>
       <h2>Created by: {songs[expandingId].owner.username}</h2>
       <h2>Likes :{songs[expandingId].likedBy.length}</h2>
+
       <button name={expandingId} onClick={playSong}>
         {id === songs[expandingId].id ? 'Stop' : 'Play'}
       </button>
@@ -83,6 +106,18 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
       }
       <button onClick={handleExpand}>Close</button>
       <button onClick={handleCopy}>Copy Song</button>
+      {isOwner(songs[expandingId].owner.id) &&
+        <>
+          <button onClick={handleDeleteConfirmationWindow}>DELETE SONG</button>
+          {isDeleting &&
+            <div className="delete-confirm">
+              <span>Delete Song?</span>
+              <button value={songs[expandingId].id} onClick={handleDeleteSong}>Yes</button>
+              <button onClick={handleDeleteConfirmationWindow}>No</button>
+            </div>
+          }
+        </>
+      }
     </div>
   )
 }

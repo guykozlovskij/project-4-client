@@ -135,17 +135,20 @@
   
 } 
 
-.tracker-section{
+
+
+.delete-confirm{
   display: flex;
-  flex-direction:row;
+  position: absolute;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 50%;
+  height: 50%;
+  background: rgba(0, 0, 0,);
+  border-radius: 20px;
+  color: whitesmoke;
 }
-
-.tracker {
-  display: flex;
-  width: 38px;
-
-}
-
 @import 
 'nav',
 'saveSong'

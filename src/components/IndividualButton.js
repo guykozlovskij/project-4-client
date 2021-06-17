@@ -15,9 +15,7 @@ export default function IndividualButton({ note, buttonsSelected, setAllNotes, a
             <button key={index} value={index} className={`music-button ${isOn ? 'clicked' : ''} ${index === step && isPlaying ? 'isPlaying' : ''}`} onClick={handleClick}>{note}</button>
           )
         })}
-
       </div>
-
     </>
   )
 }
