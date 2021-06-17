@@ -39,6 +39,9 @@ export function editSong(formData, id) {
 }
 
 // export function deleteSongs
+export function deleteSong(id){
+  return axios.delete(`${baseUrl}/songs/${id}/`, headers())
+}
 
 //? Comment Requests 
 export function addCommentToSong(formdata, id){
