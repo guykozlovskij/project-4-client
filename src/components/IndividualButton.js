@@ -1,5 +1,5 @@
 export default function IndividualButton({ note, buttonsSelected, setAllNotes, allNotes, isPlaying, synth,
-  // step,
+  step,
 }) {
   const handleClick = (e) => {
     if (!isPlaying) synth.triggerAttackRelease(note, '8n')
@@ -11,7 +11,8 @@ export default function IndividualButton({ note, buttonsSelected, setAllNotes, a
     <div className='testDiv'>
       {buttonsSelected.map((isOn, index) => {
         return (
-          <button key={index} value={index} className={`music-button ${isOn ? 'clicked' : ''}`} onClick={handleClick}>{note}</button>
+          <button key={index} value={index} className={`music-button ${isOn ? 'clicked' : ''} ${index === step && isPlaying ? 'isPlaying' : ''}
+          `} onClick={handleClick}>{note}</button>
         )
       })}
     </div>
@@ -19,4 +20,3 @@ export default function IndividualButton({ note, buttonsSelected, setAllNotes, a
 }
 
 
-// ${index === step && isPlaying ? 'isPlaying' : ''}

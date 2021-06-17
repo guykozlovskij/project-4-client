@@ -16,33 +16,41 @@ export default function Grid() {
   const history = useHistory()
   const [isSaving, setIsSaving] = useState(false)
   let stepper = 0
-  // const [whichBox, setWhichBox] = useState(0)
+  const [whichBox, setWhichBox] = useState(0)
   const transportEventId = useRef(null)
   const [allNotes, setAllNotes] = useState(savedSong ? savedSong.allNotes : noNotes)
   const gain = new Tone.Gain(0.1)
+  const gainTwo = new Tone.Gain(0.1)
+  const gainThree = new Tone.Gain(0.1)
+  const gainFour = new Tone.Gain(0.1)
+  gainTwo.toDestination()
+  gainThree.toDestination()
+  gainFour.toDestination()
   gain.toDestination()
+  
   const synths = new Tone.PolySynth().connect(gain)
-  // useEffect(() => {
-  //   if (window.localStorage.getItem('savedSong')) {
-  //     const savedSong = getSavedSong()
-  //     setAllNotes(savedSong.allNotes)
-  //     setBpm(savedSong.bpm)
-  //   }
-  // }, [])
-
+  const synthsTwo = new Tone.PolySynth().connect(gainTwo)
+  const synthsThree = new Tone.PolySynth().connect(gainThree)
+  const synthsFour = new Tone.PolySynth().connect(gainFour)
+  
 
   const notes = Object.keys(allNotes)
+
   const repeat = (time) => {
     const step = stepper % 16
     // console.log('step', step)
-    // setWhichBox(step)
+    setWhichBox(step)
     notes.forEach((note) => {
       if (allNotes[note][step]) {
-        synths.triggerAttackRelease(note, '8n', time)
+        if (step <= 3) synths.triggerAttackRelease(note, '8n', time)
+        else if (step <= 7) synthsTwo.triggerAttackRelease(note, '8n', time)
+        else if (step <= 11) synthsThree.triggerAttackRelease(note, '8n', time)
+        else synthsFour.triggerAttackRelease(note, '8n', time)
       }
     })
     stepper++
   }
+  
   const handlePlay = async () => {
     if (!isPlaying) {
 
@@ -92,17 +100,30 @@ export default function Grid() {
         {notes.map(note => {
           return (
             <IndividualButton key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} isPlaying={isPlaying} synth={synths}
-              // step={whichBox}
+              step={whichBox}
             />
           )
         })}
         <button className="play-button" onClick={handlePlay}>{!isPlaying ? 'Play' : 'Stop'}</button>
         <button onClick={handleClear}>Clear notes</button>
         <input type='range' min='10' max='200' value={bpm} onChange={handleBpm} />
-        <h3>{bpm}</h3>
+        <h3 id='bpm' >{bpm}</h3>
         <button onClick={isAuthenticated() ? handleSave : handleSaveNotLoggedIn}>Save Song</button>
+        {/* <p id='counter'>{counter}</p> */}
       </div>
       {isSaving && <SaveSong bpm={bpm} allNotes={allNotes} handleSave={handleSave} />}
     </section>
   )
 }
+
+
+// setTimeout(function increaseCounter() {
+//   const button = document.getElementsByClassName('play-button')
+//   const count = Number(document.getElementById('counter').innerHTML)
+//   if (count >= 0) {
+//     setCounter(count + 1)
+//   }
+//   if (button[0]) {
+//     if (button[0].innerHTML === 'Stop') setTimeout(increaseCounter, (60000 / (document.getElementById('bpm').innerHTML * 2)))
+//   }
+// }, (60000 / (document.getElementById('bpm').innerHTML * 2)))
