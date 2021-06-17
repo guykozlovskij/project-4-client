@@ -86,7 +86,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
       setUpdate(!update)
       setExpandingId(null)
     } catch (err) {
-      console.log(err?.response.data)
+      console.log(err.response.data)
     }
   }
 

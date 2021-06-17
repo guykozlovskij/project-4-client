@@ -51,10 +51,10 @@ export default function Nav() {
           <img src={user.profileImage} alt={user.username} />
           <h3>{user.username}</h3>
           <div className='mainLinks'>
-            <Link name='updateStorage' className='navLink' onClick={handleClick} to='/songs'>Your Songs</Link>
-            <Link name='updateStorage' className='navLink' onClick={handleClick} to='/songs'>Liked Songs</Link>
-            <Link name='updateStorage' className='navLink' onClick={handleClick} to='/songs'>All Songs</Link>
             <Link className='navLink' onClick={handleClick} to='/'>Make a song</Link>
+            <Link name='updateStorage' className='navLink' onClick={handleClick} to='/songs'>All Songs</Link>
+            <Link name='updateStorage' className='navLink' onClick={handleClick} to='/songs'>Liked Songs</Link>
+            <Link name='updateStorage' className='navLink' onClick={handleClick} to='/songs'>Your Songs</Link>
           </div>
         </div>}
         <div className='otherLinks'>
