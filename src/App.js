@@ -16,6 +16,7 @@ function App() {
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
         <Route path='/songs' component={SongIndex} />
+        <Route path='/:songId/:name' component={Grid} />
       </Switch>
     </Router>
   )

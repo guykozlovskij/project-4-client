@@ -123,7 +123,7 @@ export default function SongIndex() {
           )
         }))}
       </section>
-      {expandingId && <Expanding songs={filteredSongs(songs, filter)} expandingId={expandingId} playSong={playSong} id={id} setUpdate={setUpdate} update={update} handleExpand={handleExpand} />}
+      {expandingId && <Expanding songs={filteredSongs(songs, filter)} expandingId={expandingId} playSong={playSong} id={id} setUpdate={setUpdate} update={update} handleExpand={handleExpand} setExpandingId={setExpandingId}/>}
     </section >
   )
 }

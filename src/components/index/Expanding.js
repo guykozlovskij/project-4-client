@@ -1,15 +1,18 @@
 import { useHistory } from 'react-router'
+import { useState } from 'react'
 import useForm from '../../hooks/useForm'
-import { addCommentToSong, deleteCommentInSong } from '../../lib/api'
+import { addCommentToSong, deleteCommentInSong, editSong } from '../../lib/api'
 import { getPayload, isAuthenticated, isOwner, setSavedSong } from '../../lib/auth'
 import Like from '../common/LikeButton'
 
-export default function Expanding({ songs, expandingId, playSong, id, setUpdate, update, handleExpand }) {
+export default function Expanding({ songs, expandingId, playSong, id, setUpdate, update, handleExpand, setExpandingId }) {
   const { sub } = getPayload()
   const history = useHistory()
   const { formData, handleChange } = useForm({
     content: '',
   })
+  const [name, setName] = useState(songs[expandingId].name)
+  const [edit, setEdit] = useState(false)
   const handleAddComment = async (event) => {
     event.preventDefault()
     formData.owner = sub
@@ -36,15 +39,44 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
     }
   }
 
-  const handleCopy = () => {
+  const handleCopyAndEdit = (e) => {
     setSavedSong(songs[expandingId].notes, songs[expandingId].tempo)
-    history.push('/')
-
+    if (e.target.innerHTML === 'Edit Song') {
+      history.push(`/${songs[expandingId].id}/${songs[expandingId].name}`)
+    } else {
+      history.push('/')
+    }
   }
 
+  const handleEdit = async () => {
+    if (!edit) setEdit(true)
+    else {
+      const songToSubmit = {
+        name: name,
+        tempo: songs[expandingId].tempo,
+        notes: songs[expandingId].notes,
+      }
+      try {
+        await editSong(songToSubmit, songs[expandingId].id)
+        setUpdate(!update)
+        setEdit(false)
+        setExpandingId(null)
+      } catch (error) {
+        console.log(error.response.data)
+      }
+    }
+  }
+  const changeName = (e) => {
+    setName(e.target.value)
+  }
   return (
     <div className="expanded-view">
-      <h1>{songs[expandingId].name}</h1>
+      {!edit ?
+        <h1>{songs[expandingId].name}</h1>
+        :
+        <input type='text' value={name} maxLength='20' onChange={changeName}/>
+      }
+      <button onClick={handleEdit}>{!edit ? 'Edit Name' : 'Save Name'}</button>
       <h2>Created by: {songs[expandingId].owner.username}</h2>
       <h2>Likes :{songs[expandingId].likedBy.length}</h2>
       <button name={expandingId} onClick={playSong}>
@@ -81,8 +113,8 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
           </form>
         </section>
       }
+      <button onClick={handleCopyAndEdit}>{isOwner(songs[expandingId].owner.id) ? 'Edit Song' : 'Copy Song'}</button>
       <button onClick={handleExpand}>Close</button>
-      <button onClick={handleCopy}>Copy Song</button>
     </div>
   )
 }
