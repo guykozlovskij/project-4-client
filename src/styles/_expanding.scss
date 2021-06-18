@@ -59,7 +59,7 @@
   max-height: 180px;
   padding: 10px;
   width: 90%;
-  border-radius: 15px;
+  border-bottom: .5px solid rgba(122, 122, 122, 0.699);
 }
 
 .comment-scroll div {
@@ -67,10 +67,39 @@
   border-radius: 15px;
   color: white;
   padding: 8px;
+  padding-left: 18px;
   margin-bottom: 10px;
   width: 100%;
-  
+  button{
+    background: transparent;
+    border: none;
+  }
 } 
+
+.bottom-buttons{
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  button {
+    font-size: 15px;
+    width: 100px;
+    height: 50px;
+    background-color: rgba(187, 187, 187, 0.575);
+    border: none;
+    border-radius: 5px;
+    color: whitesmoke;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+  }
+  .delete-button{
+    background-color: rgba(168, 2, 2, 0.671);
+  }
+
+  button:hover {
+    transform: scale(1.1);
+  }
+}
+
 
 .delete-confirm{
   display: flex;

@@ -15,7 +15,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
   const [name, setName] = React.useState(songs[expandingId].name)
   const [edit, setEdit] = React.useState(false)
   const [comments, setComments] = React.useState(songs[expandingId].comments.reverse())
-  
+
   const handleAddComment = async (event) => {
     event.preventDefault()
     formData.owner = sub
@@ -110,7 +110,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
         </button>
         <h2>Likes: {songs[expandingId].likedBy.length}</h2>
         {isAuthenticated() && <Like id={songs[expandingId].id} setUpdate={setUpdate} update={update} alreadyLiked={songs[expandingId].likedBy.some(like => like.id === sub)} />}
-        
+
       </div>
       <div className="comment-scroll">
         {comments.map(comment => {
@@ -119,15 +119,14 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
               <h5>{comment.owner.username}</h5>
               <h4>{comment.content}</h4>
               {isOwner(comment.owner.id) &&
-                <span>
-                  <button name={songs[expandingId].id} value={comment.id} onClick={handleDeleteComment}>Delete</button>
-                </span>
+                <i onClick={handleDeleteComment} name={songs[expandingId].id} value={comment.id} className="fas fa-2 fa-trash"></i>
               }
             </div>
           )
         })}
       </div>
-      {isAuthenticated() &&
+      {
+        isAuthenticated() &&
         <section className="add-comment">
           <form id={songs[expandingId].id} onSubmit={handleAddComment}>
             <input
@@ -142,20 +141,22 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
           </form>
         </section>
       }
-      <button onClick={handleCopyAndEdit}>{isOwner(songs[expandingId].owner.id) ? 'Edit Song' : 'Copy Song'}</button>
-      <button onClick={handleExpand}>Close</button>
-      {isOwner(songs[expandingId].owner.id) &&
-        <>
-          <button onClick={handleDeleteConfirmationWindow}>DELETE SONG</button>
-          {isDeleting &&
-            <div className="delete-confirm">
-              <span>Delete Song?</span>
-              <button value={songs[expandingId].id} onClick={handleDeleteSong}>Yes</button>
-              <button onClick={handleDeleteConfirmationWindow}>No</button>
-            </div>
-          }
-        </>
-      }
-    </div>
+      <div className="bottom-buttons">
+        <button onClick={handleCopyAndEdit}>{isOwner(songs[expandingId].owner.id) ? 'Edit Song' : 'Copy Song'}</button>
+        <button onClick={handleExpand}>Close</button>
+        {isOwner(songs[expandingId].owner.id) &&
+          <>
+            <button className="delete-button" onClick={handleDeleteConfirmationWindow}>Delete Song</button>
+            {isDeleting &&
+              <div className="delete-confirm">
+                <span>Delete Song?</span>
+                <button value={songs[expandingId].id} onClick={handleDeleteSong}>Yes</button>
+                <button onClick={handleDeleteConfirmationWindow}>No</button>
+              </div>
+            }
+          </>
+        }
+      </div>
+    </div >
   )
 }
