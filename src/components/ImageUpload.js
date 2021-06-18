@@ -28,8 +28,8 @@ export default function ImageUpload({ onUpload }) {
 
   return (
     <>
+      <button onClick={handleUpload} type="button" className="button">{image ? 'Change Image' : 'Upload Image'}</button>
       {image && <img src={image} alt="uploaded profile"/>}
-      {!image && <button onClick={handleUpload} type="button" className="button">Upload Image</button>}
     </>
   )
 }
