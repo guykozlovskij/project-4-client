@@ -12,7 +12,7 @@
       font-size: 30px;
       padding: 10px 0;
     }
-    .register-form{
+    .register-form {
       padding: 20px;
       width: 30%;
       height: 100%;
@@ -27,15 +27,23 @@
         font-size: 20px;
       }
       input {
-        padding: 5px;
+        padding: 10px;
         font-size: 15px;
         width: 90%;
+        color: rgb(255, 255, 255);
+        background-color: rgba(255, 255, 255, .15);  
+        backdrop-filter: blur(5px);
+        border: none;
+        border-radius: 5px;
       }
       button {
-        font-size: 15px;
+        font-size: 20px;
         padding: 10px;
         width: 90%;
-        background-color: rgba(169, 59, 44, 0.575);
+        background-color: rgba(187, 187, 187, 0.575);
+        border: none;
+        border-radius: 5px;
+        color: whitesmoke;
       }
       .error {
         color: red;
@@ -57,11 +65,61 @@
 
 
 
-// .login-section{
-//   display: flex;
-//   justify-content: center;
-//   width: auto;
-// }
+
+
+.login-section{
+  width: 100%;
+  height: 35vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  h1 {
+    font-size: 30px;
+    padding: 10px 0;
+  }
+  .login-form {
+    padding: 20px;
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, .15);  
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    label {
+      font-size: 20px;
+    }
+    input {
+      padding: 10px;
+      font-size: 15px;
+      width: 90%;
+      color: rgb(255, 255, 255);
+      background-color: rgba(255, 255, 255, .15);  
+      backdrop-filter: blur(5px);
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      font-size: 20px;
+      padding: 10px;
+      width: 90%;
+      background-color: rgba(187, 187, 187, 0.575);
+      border: none;
+      border-radius: 5px;
+      color: whitesmoke;
+    }
+    .error {
+      color: red;
+      animation: shakeX 1s;
+    }
+    .link {
+      color: black;
+    }
+  }
+}
 
 // .login-form{
 //   display: flex;

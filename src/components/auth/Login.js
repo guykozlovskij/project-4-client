@@ -30,13 +30,13 @@ function Login() {
   }
 
   return (
-    <>
+    <div className='formBackground'>
       <section className="login-section">
+        <h1>Login</h1>
         <form
           className="login-form"
           onSubmit={handleSubmit}
         >
-          <h1>Login</h1>
           <label>Email</label>
           <input
             className="input"
@@ -56,12 +56,12 @@ function Login() {
             Log In
           </button>
           {isError && (
-            <p>Either email or password were incorrect</p>
+            <p className='error'>Either email or password were incorrect</p>
           )}
+          <Link className='link' to='/register'>Register an account here</Link>
         </form>
-        <Link to='/register'>Register an account here</Link>
       </section>
-    </>
+    </div>
   )
 }
 
