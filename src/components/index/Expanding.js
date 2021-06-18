@@ -98,7 +98,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
         :
         <input type='text' value={name} maxLength='20' onChange={changeName}/>
       }
-      {isOwner(songs[expandingId].owner.id) && <button onClick={handleEdit}>{!edit ? 'Edit Name' : 'Save Name'}</button>}
+      {isOwner(songs[expandingId].owner.id) && <button onClick={handleEdit} className='editName'>{!edit ? <i className='fas fa-pen'></i> : <i className='fas fa-save'></i>}</button>}
       <h2>Created by: {songs[expandingId].owner.username}</h2>
       <h2>Likes :{songs[expandingId].likedBy.length}</h2>
 
