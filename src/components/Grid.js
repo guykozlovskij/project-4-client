@@ -106,7 +106,6 @@ export default function Grid() {
   return (
     <section className="grid-parent">
       <div className="grid">
-        <h1>Grid Stuff</h1>
         {notes.map(note => {
           return (
             <IndividualButton key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} isPlaying={isPlaying} synth={synths}

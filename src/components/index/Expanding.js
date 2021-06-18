@@ -37,12 +37,12 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
   }
 
   const handleDeleteComment = async (event) => {
-    const commentId = event.target.value
+    const ids = event.target.id.split(' ')
     try {
-      await deleteCommentInSong(event.target.name, commentId)
+      await deleteCommentInSong(Number(ids[1]), Number(ids[0]))
       setUpdate(!update)
     } catch (err) {
-      console.log(err?.response.data)
+      console.log(err)
     }
   }
 
@@ -116,10 +116,11 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
         {comments.map(comment => {
           return (
             <div key={comment.id} className="comment-div">
-              <h5>{comment.owner.username}</h5>
-              <h4>{comment.content}</h4>
-              {isOwner(comment.owner.id) &&
-                <i onClick={handleDeleteComment} name={songs[expandingId].id} value={comment.id} className="fas fa-2 fa-trash"></i>
+              <div>
+                <h5>{comment.owner.username}</h5>
+                <h4>{comment.content}</h4>
+              </div>
+              {isOwner(comment.owner.id) && <i onClick={handleDeleteComment} id={`${comment.id} ${songs[expandingId].id}`} className="fas fa-2 fa-trash"></i>
               }
             </div>
           )
