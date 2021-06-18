@@ -113,12 +113,12 @@ nav{
         padding: 15px;
         border-radius: 10px;
         text-decoration: none;
-        background-color: #746d6d;
+        background-color: rgba(187, 187, 187, 0.575);
+        border: none;
         color: whitesmoke;
-        border: 2px solid whitesmoke;
+        transition: all .5s ease-in-out;
       }
       .navLink:hover {
-        color: rgb(247, 96, 96);
         transform: scale(1.1)
       }
     }
@@ -143,12 +143,10 @@ nav{
       text-decoration: none;
       background-color: rgba(187, 187, 187, 0.575);
       border: none;
-      border-radius: 5px;
       color: whitesmoke;
-
+      transition: all .5s ease-in-out;
     }
     .navLink:hover {
-      color: rgb(247, 96, 96);
       transform: scale(1.1);
     }
   }
