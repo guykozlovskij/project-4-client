@@ -150,6 +150,16 @@
   backdrop-filter: blur(10px);
   border-radius: 20px;
   color: whitesmoke;
+  button {
+    font-size: 15px;
+    width: 100px;
+    height: 30px;
+    background-color: rgba(187, 187, 187, 0.575);
+    border: none;
+    border-radius: 5px;
+    color: whitesmoke;
+    cursor: pointer;
+  }
 }
 
 .close {
@@ -190,6 +200,8 @@ button:hover {
   }
 }
 
-textArea:focus, input:focus, select:focus {
+
+
+textArea:focus, input:focus, select:focus, button:focus {
   outline-width: 0;
 }

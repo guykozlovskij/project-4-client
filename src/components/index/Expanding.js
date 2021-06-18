@@ -115,7 +115,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
 
       </div>
       <div className="delete-edit-buttons">
-        <button className="delete-button" onClick={handleDeleteConfirmationWindow}>Delete Song</button>
+        {isOwner(songs[expandingId].owner.id) && <button className="delete-button" onClick={handleDeleteConfirmationWindow}>Delete Song</button>}
         <button onClick={handleCopyAndEdit}>{isOwner(songs[expandingId].owner.id) ? 'Edit Song' : 'Copy Song'}</button>
         <button onClick={() => setIsCommenting(!isCommenting)}>{!isCommenting ? 'Comment' : 'Cancel'}</button>
       </div>
