@@ -22,7 +22,7 @@
   ::-webkit-input-placeholder { 
       color: rgba(255, 255, 255, 0.432);
       font-weight: normal;
-      opacity: 15; /* Firefox */
+      opacity: 15; 
     }
 
 
@@ -61,9 +61,9 @@ h1, h2, h3, h4, p {
 .playButton {
   background-color: transparent;
   width: 0;
-  height: 36px;
+  height: 30px;
   border-style: solid;
-  border-width: 18px 0 18px 30px;
+  border-width: 16px 0 16px 30px;
   border-color: transparent transparent transparent #ffffff;
   cursor: pointer;
   will-change: border-width;

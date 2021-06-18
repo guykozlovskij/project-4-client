@@ -7,15 +7,15 @@ nav{
     display: flex;
     width: 100%;
     justify-content: center;
-    margin-top: 15px;
+    margin-top: 30px;
     font-size: 60px;
     letter-spacing: 4px;
+    margin-bottom: 20px;
   }
 }
 
 // Menu button
 .menuButton {
-  background-color: #746d6d;
   display: flex;
   position: fixed;
   top: 0;
@@ -26,7 +26,6 @@ nav{
   height: 50px;
   cursor: pointer;
   transition: all .5s ease-in-out;
-  border: 3px solid black;
   .burger {
     width: 30px;
     height: 2px;

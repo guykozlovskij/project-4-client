@@ -111,7 +111,7 @@ export default function SongIndex() {
           return (
             <div className="song-card" key={song.id}>
               <h3>{song.name}</h3>
-              <h4>Likes: {song.likedBy.length}</h4>
+              {/* <h4>Likes: {song.likedBy.length}</h4> */}
               <div className='playAndLike'>
                 <button name={index} onClick={playSong} className={`playButton ${id === song.id ? 'pause' : ''}`}>
                 </button>

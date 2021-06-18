@@ -101,12 +101,14 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
         }
         {isOwner(songs[expandingId].owner.id) && <button onClick={handleEdit} className='editName'>{!edit ? <i className='fas fa-pen'></i> : <i className='fas fa-save'></i>}</button>}
       </div>
-      <h2>Created by: {songs[expandingId].owner.username}</h2>
-      <h2>Likes :{songs[expandingId].likedBy.length}</h2>
-
-      <button className={`playButton ${id === songs[expandingId].id ? 'pause' : ''}`} name={expandingId} onClick={playSong}>
-      </button>
-      {isAuthenticated() && <Like id={songs[expandingId].id} setUpdate={setUpdate} update={update} alreadyLiked={songs[expandingId].likedBy.some(like => like.id === sub)} />}
+      <h3>Created by: {songs[expandingId].owner.username}</h3>
+      <div className="expanded-like-and-play-button-div">
+        <button className={`playButton ${id === songs[expandingId].id ? 'pause' : ''}`} name={expandingId} onClick={playSong}>
+        </button>
+        <h2>Likes: {songs[expandingId].likedBy.length}</h2>
+        {isAuthenticated() && <Like id={songs[expandingId].id} setUpdate={setUpdate} update={update} alreadyLiked={songs[expandingId].likedBy.some(like => like.id === sub)} />}
+        
+      </div>
       <div className="comment-scroll">
         {songs[expandingId].comments.map(comment => {
           return (
