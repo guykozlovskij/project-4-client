@@ -81,12 +81,13 @@ nav{
     align-items: center;
     justify-content: space-evenly;
     height: 70%;
-    width: 150px;
+    width: 300px;
     animation: fadeIn 2s;
       img {
         width: 150px;
         max-height: 150px;
         border-radius: 50%;
+        animation: fadeIn 3s;
       }
     
     h3 {
