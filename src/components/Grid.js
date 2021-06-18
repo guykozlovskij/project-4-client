@@ -26,16 +26,6 @@ export default function Grid() {
   
   const synths = new Tone.PolySynth().connect(gain)
 
-
-  // useEffect(() => {
-  //   if (window.localStorage.getItem('savedSong')) {
-  //     const savedSong = getSavedSong()
-  //     setAllNotes(savedSong.allNotes)
-  //     setBpm(savedSong.bpm)
-  //   }
-  // }, [])
-
-
   const notes = Object.keys(allNotes)
 
   const repeat = (time) => {
@@ -124,26 +114,13 @@ export default function Grid() {
             />
           )
         })}
-        <button className="play-button" onClick={handlePlay}>{!isPlaying ? 'Play' : 'Stop'}</button>
+        <button className={`playButton ${isPlaying ? 'pause' : ''}`} onClick={handlePlay}></button>
         <button onClick={handleClear}>Clear notes</button>
         <input type='range' min='1' max='180' value={bpm} onChange={handleBpm} />
         <h3 id='bpm' >{bpm}</h3>
         <button onClick={isAuthenticated() ? handleSave : handleSaveNotLoggedIn}>Save Song</button>
-        {/* <p id='counter'>{counter}</p> */}
       </div>
       {isSaving && <SaveSong bpm={bpm} allNotes={allNotes} handleSave={handleSave} />}
     </section>
   )
 }
-
-
-// setTimeout(function increaseCounter() {
-//   const button = document.getElementsByClassName('play-button')
-//   const count = Number(document.getElementById('counter').innerHTML)
-//   if (count >= 0) {
-//     setCounter(count + 1)
-//   }
-//   if (button[0]) {
-//     if (button[0].innerHTML === 'Stop') setTimeout(increaseCounter, (60000 / (document.getElementById('bpm').innerHTML * 2)))
-//   }
-// }, (60000 / (document.getElementById('bpm').innerHTML * 2)))
