@@ -106,7 +106,7 @@ export default function SongIndex() {
   return (
     <section className="song-index-page">
       <h1>Songs</h1>
-      <input type='text' onChange={handleFilter} />
+      <input className="search-bar" placeholder="Search..." type='text' onChange={handleFilter} />
       <section className="song-grid">
         {songs && (filteredSongs(songs, filter).map((song, index) => {
           return (
@@ -119,7 +119,6 @@ export default function SongIndex() {
                 {isAuthenticated() && <Like id={song.id} setUpdate={setUpdate} update={update} alreadyLiked={song.likedBy.some(like => like.id === sub)}/>}
               </div>
               <button name={index} onClick={handleExpand} className='expand'></button>
-
             </div>
           )
         }))}

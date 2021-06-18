@@ -1,16 +1,82 @@
+.song-index-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.search-bar{
+  margin: 15px;
+  height: 35px;
+  width: 200px;
+  font-size: 25px;
+  font-weight: normal;
+  color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, .15);  
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+  border: 0px solid;
+  padding-left: 10px;
+  }
+
+  ::-webkit-input-placeholder { 
+      color: rgba(255, 255, 255, 0.432);
+      font-weight: normal;
+      opacity: 15; /* Firefox */
+    }
+
+
+
+.song-card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  font-weight: normal;
+  width: 240px;
+  margin: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 0px;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, .15);  
+  backdrop-filter: blur(5px);
+}
+
+h1, h2, h3, h4, p {
+  font-weight: normal;
+  
+}
+
+.expanded-view{
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 50%;
+  height: 50%;
+  background: rgba(116, 109, 109, 0.9);
+  border-radius: 20px;
+  color: whitesmoke;
+}
+
 .playAndLike{
   margin: 10px 0;
   width: 100%;
   display: flex;
   justify-content: space-evenly;
 }
+
 .playButton {
   background-color: transparent;
   width: 0;
   height: 36px;
   border-style: solid;
   border-width: 18px 0 18px 30px;
-  border-color: transparent transparent transparent #202020;
+  border-color: transparent transparent transparent #ffffff;
   cursor: pointer;
   will-change: border-width;
   transition: all .2s ease;
@@ -20,9 +86,12 @@
   border-style: double;
   border-width: 0px 0 0px 30px;
 }
-.fas{
-  color: red;
+.fas, .far{
+  color: rgb(255, 255, 255);
 }
+
+
+
 .fa-heart:hover {
   transition: all .25s ease-in-out;
   cursor: pointer;
@@ -32,10 +101,11 @@
 .expand {
   width: 40px;
   height: 40px;
-  background-color: #746d6d;
+  background-color: rgba(187, 187, 187, 0.575);  
+  backdrop-filter: blur(5px);
   border-radius: 50%;
-  border-radius: 1px solid;
-  border-color: black;
+  border: 0px solid;
+  border-color: rgba(56, 48, 48, 0.726); ;
   cursor: pointer;
   transition: all .5s ease-in-out;
 }
