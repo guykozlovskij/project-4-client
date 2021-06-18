@@ -75,7 +75,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
   }
   const handleDeleteConfirmationWindow = async () => {
     setIsDeleting(!isDeleting)
-    
+
   }
 
   const handleDeleteSong = async (event) => {
@@ -93,18 +93,20 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
 
   return (
     <div className="expanded-view">
-      {!edit ?
-        <h1>{songs[expandingId].name}</h1>
-        :
-        <input type='text' value={name} maxLength='20' onChange={changeName}/>
-      }
-      {isOwner(songs[expandingId].owner.id) && <button onClick={handleEdit} className='editName'>{!edit ? <i className='fas fa-2x fa-pen'></i> : <i className='fas fa-2x fa-save'></i>}</button>}
+      <div className="song-title-div">
+        {!edit ?
+          <h1>{songs[expandingId].name}</h1>
+          :
+          <input className="song-name" type='text' value={name} maxLength='20' onChange={changeName} />
+        }
+        {isOwner(songs[expandingId].owner.id) && <button onClick={handleEdit} className='editName'>{!edit ? <i className='fas fa-pen'></i> : <i className='fas fa-save'></i>}</button>}
+      </div>
       <h2>Created by: {songs[expandingId].owner.username}</h2>
       <h2>Likes :{songs[expandingId].likedBy.length}</h2>
 
       <button className={`playButton ${id === songs[expandingId].id ? 'pause' : ''}`} name={expandingId} onClick={playSong}>
       </button>
-      {isAuthenticated() && <Like id={songs[expandingId].id} setUpdate={setUpdate} update={update} alreadyLiked={songs[expandingId].likedBy.some(like => like.id === sub)}/>}
+      {isAuthenticated() && <Like id={songs[expandingId].id} setUpdate={setUpdate} update={update} alreadyLiked={songs[expandingId].likedBy.some(like => like.id === sub)} />}
       <div className="comment-scroll">
         {songs[expandingId].comments.map(comment => {
           return (

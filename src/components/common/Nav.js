@@ -41,7 +41,7 @@ export default function Nav() {
   }
   return (
     <nav>
-      <Link className='homeLink' to='/'>Music-Maker</Link>
+      <Link className='homeLink' to='/'>note-it-down</Link>
       <div className={`menuButton ${navbarClicked ? 'open' : ''}`} onClick={handleClick}>
         <div className='burger'>
         </div>
