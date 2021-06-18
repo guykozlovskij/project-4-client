@@ -51,19 +51,6 @@ h1, h2, h3, h4, p {
   
 }
 
-.expanded-view{
-  display: flex;
-  position: absolute;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 50%;
-  height: 50%;
-  background: rgba(116, 109, 109, 0.9);
-  border-radius: 20px;
-  color: whitesmoke;
-}
-
 .playAndLike{
   margin: 10px 0;
   width: 100%;
