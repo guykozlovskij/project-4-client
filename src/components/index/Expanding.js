@@ -112,7 +112,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
         {isAuthenticated() && <Like id={songs[expandingId].id} setUpdate={setUpdate} update={update} alreadyLiked={songs[expandingId].likedBy.some(like => like.id === sub)} />}
 
       </div>
-      <div className="comment-scroll">
+      {comments.length > 0 && <div className="comment-scroll">
         {comments.map(comment => {
           return (
             <div key={comment.id} className="comment-div">
@@ -125,7 +125,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
             </div>
           )
         })}
-      </div>
+      </div>}
       {
         isAuthenticated() &&
         <section className="add-comment">
