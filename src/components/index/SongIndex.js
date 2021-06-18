@@ -105,7 +105,6 @@ export default function SongIndex() {
 
   return (
     <section className="song-index-page">
-      <h1>Songs</h1>
       <input className="search-bar" placeholder="Search..." type='text' onChange={handleFilter} />
       <section className="song-grid">
         {songs && (filteredSongs(songs, filter).map((song, index) => {
