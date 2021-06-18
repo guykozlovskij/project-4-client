@@ -116,9 +116,9 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
         {comments.map(comment => {
           return (
             <div key={comment.id} className="comment-div">
-              <div>
-                <h5>{comment.owner.username}</h5>
-                <h4>{comment.content}</h4>
+              <div className='comment-text'>
+                <h4>{comment.owner.username}</h4>
+                <h3>{comment.content}</h3>
               </div>
               {isOwner(comment.owner.id) && <i onClick={handleDeleteComment} id={`${comment.id} ${songs[expandingId].id}`} className="fas fa-2 fa-trash"></i>
               }
@@ -130,7 +130,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
         isAuthenticated() &&
         <section className="add-comment">
           <form id={songs[expandingId].id} onSubmit={handleAddComment}>
-            <input
+            <textarea
               className="input"
               type="input"
               placeholder="Add a comment"
@@ -138,7 +138,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
               value={formData.content}
               onChange={handleChange}
             />
-            <button type="submit">Add a comment</button>
+            <button type="submit">Comment</button>
           </form>
         </section>
       }
