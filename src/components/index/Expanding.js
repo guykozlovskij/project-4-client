@@ -116,7 +116,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
         <button className="delete-button" onClick={handleDeleteConfirmationWindow}>Delete Song</button>
         <button onClick={handleCopyAndEdit}>{isOwner(songs[expandingId].owner.id) ? 'Edit Song' : 'Copy Song'}</button>
       </div>
-      <div className="comment-scroll">
+      {comments.length > 0 && <div className="comment-scroll">
         {comments.map(comment => {
           return (
             <div key={comment.id} className="comment-div">
@@ -129,7 +129,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
             </div>
           )
         })}
-      </div>
+      </div>}
       {
         isAuthenticated() &&
         <section className="add-comment">
