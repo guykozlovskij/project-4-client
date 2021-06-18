@@ -112,6 +112,10 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
         {isAuthenticated() && <Like id={songs[expandingId].id} setUpdate={setUpdate} update={update} alreadyLiked={songs[expandingId].likedBy.some(like => like.id === sub)} />}
 
       </div>
+      <div className="delete-edit-buttons">
+        <button className="delete-button" onClick={handleDeleteConfirmationWindow}>Delete Song</button>
+        <button onClick={handleCopyAndEdit}>{isOwner(songs[expandingId].owner.id) ? 'Edit Song' : 'Copy Song'}</button>
+      </div>
       <div className="comment-scroll">
         {comments.map(comment => {
           return (
@@ -142,11 +146,11 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
         </section>
       }
       <div className="bottom-buttons">
-        <button onClick={handleCopyAndEdit}>{isOwner(songs[expandingId].owner.id) ? 'Edit Song' : 'Copy Song'}</button>
+        {/* <button onClick={handleCopyAndEdit}>{isOwner(songs[expandingId].owner.id) ? 'Edit Song' : 'Copy Song'}</button> */}
         <button onClick={handleExpand}>Close</button>
         {isOwner(songs[expandingId].owner.id) &&
           <>
-            <button className="delete-button" onClick={handleDeleteConfirmationWindow}>Delete Song</button>
+            {/* <button className="delete-button" onClick={handleDeleteConfirmationWindow}>Delete Song</button> */}
             {isDeleting &&
               <div className="delete-confirm">
                 <span>Delete Song?</span>
