@@ -44,6 +44,11 @@
         border: none;
         border-radius: 5px;
         color: whitesmoke;
+        cursor: pointer;
+        transition: all .5s ease-in-out;
+      }
+      button:hover {
+        transform: scale(1.1);
       }
       .error {
         color: red;
@@ -110,6 +115,11 @@
       border: none;
       border-radius: 5px;
       color: whitesmoke;
+      cursor: pointer;
+      transition: all .5s ease-in-out;
+    }
+    button:hover {
+      transform: scale(1.1);
     }
     .error {
       color: red;
@@ -120,11 +130,3 @@
     }
   }
 }
-
-// .login-form{
-//   display: flex;
-//   flex-direction: column;
-//   flex-wrap: wrap;
-//   width: 25%;
-//   align-items: center;
-// }

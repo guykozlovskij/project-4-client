@@ -9,17 +9,20 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
   const { sub } = getPayload()
   const [isDeleting, setIsDeleting] = React.useState(false)
   const history = useHistory()
-  const { formData, handleChange } = useForm({
+  const { formData, handleChange, setFormdata } = useForm({
     content: '',
   })
   const [name, setName] = React.useState(songs[expandingId].name)
   const [edit, setEdit] = React.useState(false)
+  const [comments, setComments] = React.useState(songs[expandingId].comments.reverse())
+  
   const handleAddComment = async (event) => {
     event.preventDefault()
     formData.owner = sub
     try {
       await addCommentToSong(formData, event.target.id)
       setUpdate(!update)
+      setFormdata({ ...formData, content: '' })
     } catch (err) {
       if (err.repsonse) {
         console.log(err.repsonse.data)
@@ -29,12 +32,12 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
     }
   }
 
-
-
+  if (comments.reverse() !== songs[expandingId].comments) {
+    setComments(songs[expandingId].comments)
+  }
 
   const handleDeleteComment = async (event) => {
     const commentId = event.target.value
-    console.log('comment', commentId)
     try {
       await deleteCommentInSong(event.target.name, commentId)
       setUpdate(!update)
@@ -110,7 +113,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
         
       </div>
       <div className="comment-scroll">
-        {songs[expandingId].comments.map(comment => {
+        {comments.map(comment => {
           return (
             <div key={comment.id} className="comment-div">
               <h5>{comment.owner.username}</h5>
