@@ -81,19 +81,14 @@ nav{
     align-items: center;
     justify-content: space-evenly;
     height: 70%;
-    width: 100%;
+    width: 150px;
     animation: fadeIn 2s;
-    .imageDiv {
-      border: 5px solid black;
-      width: 60%;
-      height: 30%;
-      border-radius: 50%;
       img {
-        height: 100%;
-        width: 100%;
+        width: 150px;
+        max-height: 150px;
         border-radius: 50%;
       }
-    }
+    
     h3 {
       font-size: 40px;
     }
@@ -169,12 +164,4 @@ nav{
   .contents.display {
     width: 50%;
   }
-  .contents{
-    .profileData{
-      .imageDiv{
-        height: 30%;
-      }
-    }
-  }
-
 }
