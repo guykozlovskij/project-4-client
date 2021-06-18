@@ -9,11 +9,11 @@ function filteredSongs(songs, filter) {
   const { sub } = getPayload()
   const beenFiltered = songs.filter(song => {
     let found = false
-    if (getSelect() === 'All Songs') found = true
-    if (getSelect() === 'Your Songs') {
+    if (getSelect() === 'all') found = true
+    if (getSelect() === 'composed') {
       found = song.owner.id === sub
     }
-    if (getSelect() === 'Liked Songs') {
+    if (getSelect() === 'liked') {
       found = song.likedBy.some(like => like.id === sub)
     }
     return (
