@@ -8,12 +8,6 @@
   // z-index: -1;
 }
 
-
-.clicked {
-  background-color: pink;
-}
-
-
 .grid-parent{
   display: flex;
   justify-content: center;
@@ -27,30 +21,88 @@
   text-align: center;
   align-items: center;
   justify-content: center;
+  button:hover {
+    transform: scale(0.95) !important;
+  }
 }
-
 
 .music-button{
   flex: 1;
-  padding: 1em;
+  padding: 1.7em;
   position: relative;
+  border: 2px solid transparent; 
+  margin: 1px;
+  background-color: rgb(255, 255, 255);
   // z-index: 0;
+  
+}
+
+.isPlaying {
+  border-color: #75b422;
+}
+
+.clicked {
+  background-color: rgb(255, 192, 192);
+}
+
+.controls{
+  display: flex;
+  margin-top: 15px;
+  width: 100%;
+  justify-content: space-evenly;
+  
+}
+
+#clear-notes{
+  font-size: 15px;
+  width: 100px;
+  height: 30px;
+  background-color: rgba(187, 53, 53, 0.575);
+  border: none;
+  border-radius: 5px;
+  color: whitesmoke;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
+  margin-top: 3px;
+}
+
+#save-button{
+  width: 50px;
+  margin-top: -30px;
+}
+
+#bpm-controls{
+  margin-top: 8px;   
+}
+
+#performance-button{
+  margin-top: 20px;
+  font-size: 15px;
+  width: 150px;
+  height: 30px;
+  background-color: rgba(255, 174, 0, 0.575);
+  border: none;
+  border-radius: 5px;
+  color: whitesmoke;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
 }
 
 .play-button{
   padding: 8px;
-
 }
 
 .testDiv{
   display: flex;
 }
 
-.isPlaying {
-  border-color: #04AA6D;
-}
-
 .saveButton {
   background: none;
   border: none;
 }
+
+#slider{
+  width:300px;  
+}
+
+

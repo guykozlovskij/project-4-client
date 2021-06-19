@@ -24,7 +24,7 @@ export default function Grid() {
   const [allNotes, setAllNotes] = useState(savedSong ? savedSong.allNotes : noNotes)
   const gain = new Tone.Gain(0.1)
   gain.toDestination()
-  
+
   const synths = new Tone.PolySynth().connect(gain)
   console.log('here')
   const notes = Object.keys(allNotes)
@@ -41,7 +41,7 @@ export default function Grid() {
     })
     stepper++
   }
-  
+
   const handlePlay = async () => {
     if (!isPlaying) {
 
@@ -114,12 +114,16 @@ export default function Grid() {
             />
           )
         })}
-        <button className={`playButton ${isPlaying ? 'pause' : ''}`} onClick={handlePlay}></button>
-        <button onClick={handleClear}>Clear notes</button>
-        <input type='range' min='1' max='180' value={bpm} onChange={handleBpm} />
-        <h3 id='bpm' >{bpm}</h3>
-        <button onClick={isAuthenticated() ? handleSave : handleSaveNotLoggedIn} className='saveButton'><i className='fas  fa-3x fa-save'></i></button>
-        <button onClick={() => setPerformance(!performance)}>Performance: {performance ? 'On' : 'Off'}</button>
+        <div className="controls">
+          <button id="clear-notes" onClick={handleClear}>Clear notes</button>
+          <div id="bpm-controls">
+            <input id="slider" type='range' min='1' max='180' value={bpm} onChange={handleBpm} />
+            <h3 id='bpm' >{bpm}</h3>
+          </div>
+          <button className={`playButton ${isPlaying ? 'pause' : ''}`} onClick={handlePlay}></button>
+          <button id="save-button" onClick={isAuthenticated() ? handleSave : handleSaveNotLoggedIn} className='saveButton'><i className='fas  fa-3x fa-save'></i></button>
+        </div>
+        <button id="performance-button" onClick={() => setPerformance(!performance)}>Performance: {performance ? 'On' : 'Off'}</button>
       </div>
       {isSaving && <SaveSong bpm={bpm} allNotes={allNotes} handleSave={handleSave} />}
     </section>

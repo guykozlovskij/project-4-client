@@ -27,11 +27,12 @@ export default function SaveSong({ bpm, allNotes, handleSave }) {
   return (
     <div className='songUpload'>
       <label>Name Your Masterpiece:</label>
-      <input type='text' maxLength='20' onInput={handleInput}/>
+      <input type='text' maxLength='20' onInput={handleInput} />
       <h3>{error ? error : `Remaining Characters: ${20 - name.length}`}</h3>
-
-      <button onClick={confirmSave}>Confirm</button>
-      <button onClick={handleSave}>Cancel</button>
+      <div className="confirm-cancel">
+        <button onClick={confirmSave}>Confirm</button>
+        <button onClick={handleSave}>Cancel</button>
+      </div>
     </div>
   )
 }

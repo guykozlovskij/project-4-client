@@ -12,7 +12,10 @@ export default function IndividualButton({ note, buttonsSelected, setAllNotes, a
       {buttonsSelected.map((isOn, index) => {
         return (
           <button key={index} value={index} className={`music-button ${isOn ? 'clicked' : ''} ${index === step && isPlaying ? 'isPlaying' : ''}
-          `} onClick={handleClick}>{note}</button>
+          `} onClick={handleClick}>
+            {/* Uncomment to show note on button */}
+            {/* {note} */}
+          </button>
         )
       })}
     </div>
