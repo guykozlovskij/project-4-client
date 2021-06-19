@@ -99,6 +99,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
   return (
     <div className="expanded-view">
       <div className="song-title-div">
+
         {!edit ?
           <h1>{songs[expandingId].name}</h1>
           :
@@ -106,7 +107,8 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
         }
         {isOwner(songs[expandingId].owner.id) && <button onClick={handleEdit} className='editName'>{!edit ? <i className='fas fa-pen'></i> : <i className='fas fa-save'></i>}</button>}
       </div>
-      <h3>Created by: {songs[expandingId].owner.username}</h3>
+      <img id="user-image" src={songs[expandingId].owner.profileImage}></img>
+      <h3>{songs[expandingId].owner.username}</h3>
       <div className="expanded-like-and-play-button-div">
         <button className={`playButton ${id === songs[expandingId].id ? 'pause' : ''}`} name={expandingId} onClick={playSong}>
         </button>
@@ -115,8 +117,8 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
 
       </div>
       <div className="delete-edit-buttons">
-        {isOwner(songs[expandingId].owner.id) && <button className="delete-button" onClick={handleDeleteConfirmationWindow}>Delete Song</button>}
         <button onClick={handleCopyAndEdit}>{isOwner(songs[expandingId].owner.id) ? 'Edit Song' : 'Copy Song'}</button>
+        {isOwner(songs[expandingId].owner.id) && <button className="delete-button" onClick={handleDeleteConfirmationWindow}>Delete Song</button>}
         <button onClick={() => setIsCommenting(!isCommenting)}>{!isCommenting ? 'Comment' : 'Cancel'}</button>
       </div>
       {!isCommenting ?
@@ -127,7 +129,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
                 <div key={comment.id} className="comment-div">
                   <div className='comment-text'>
                     <h4>{comment.owner.username}</h4>
-                    <h3>{comment.content}</h3>
+                    <p>{comment.content}</p>
                   </div>
                   {isOwner(comment.owner.id) && <i onClick={handleDeleteComment} id={`${comment.id} ${songs[expandingId].id}`} className="fas fa-2 fa-trash"></i>
                   }
@@ -143,6 +145,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
             <textarea
               className="input"
               type="input"
+              maxLength="50"
               placeholder="Add a comment"
               name="content"
               value={formData.content}

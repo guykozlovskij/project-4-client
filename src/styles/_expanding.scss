@@ -14,13 +14,19 @@ button:hover, .fa-trash:hover {
   flex-direction: column;
   justify-content:space-evenly;
   align-items: center;
-  width: 500px;
-  height: 60%;
+  width: 400px;
+  height: 530px;
   background-color: rgba(0, 0, 0, 0.719); 
   backdrop-filter: blur(10px);
   border-radius: 20px;
   color: whitesmoke;
+  margin-top: 20px;
   animation: fadeIn .5s;
+}
+
+#user-image {
+  width: 70px;
+  border-radius: 50%;
 }
 
 .song-title-div{
@@ -54,26 +60,30 @@ button:hover, .fa-trash:hover {
 }
 
 .comment-scroll {
-  margin-top: 10px;
+  margin-top: 20px;
   overflow-y: scroll;
-  max-height: 180px;
+  max-height: 200px;
   padding: 10px;
+  margin-bottom: 20px;
   width: 90%;
   border-bottom: 1px solid rgba(158, 158, 158, 0.699);
   border-top: 1px solid rgba(158, 158, 158, 0.699);
 }
+
 
 .comment-scroll div {
   background-color: rgba(128, 128, 128, 0.301);
   border-radius: 15px;
   color: white;
   padding: 8px;
-  padding-left: 15px;
+  padding-left: 10px;
   margin-bottom: 10px;
+  height: 90px;
   width: 100%;
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
+
   .comment-text {
     background: none;
     width: 100%;
@@ -81,12 +91,20 @@ button:hover, .fa-trash:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    
+
     h4{
+      font-size: 15px;
       font-weight: bold;
-      margin: 10px 0 5px 0;
+      margin: 5px 0 5px 0;
+      padding-top: 10px;
     }
-    h3 {
+    p {
+      font-size: 18px;
       margin-top: 5px;
+      word-break: break-word;
+      
+      padding-bottom: 15px;
     }
   }
   .fa-trash {
@@ -124,7 +142,7 @@ button:hover, .fa-trash:hover {
 .delete-edit-buttons{
   display: flex;
   flex-wrap: wrap;
-  width: 50%;
+  width: 60%;
   justify-content: center;
   button {
     margin: 5px;
