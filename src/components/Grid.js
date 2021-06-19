@@ -118,7 +118,7 @@ export default function Grid() {
         <button onClick={handleClear}>Clear notes</button>
         <input type='range' min='1' max='180' value={bpm} onChange={handleBpm} />
         <h3 id='bpm' >{bpm}</h3>
-        <button onClick={isAuthenticated() ? handleSave : handleSaveNotLoggedIn}>Save Song</button>
+        <button onClick={isAuthenticated() ? handleSave : handleSaveNotLoggedIn} className='saveButton'><i className='fas  fa-3x fa-save'></i></button>
         <button onClick={() => setPerformance(!performance)}>Performance: {performance ? 'On' : 'Off'}</button>
       </div>
       {isSaving && <SaveSong bpm={bpm} allNotes={allNotes} handleSave={handleSave} />}
