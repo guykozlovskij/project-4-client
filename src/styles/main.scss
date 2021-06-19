@@ -57,18 +57,9 @@ body{
   flex: 1;
   padding: 0.5em;
   position: relative;
-  margin: 5px;
   // z-index: 0;
 }
 
-.song-grid{
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  flex-wrap: wrap;
-  max-width: 920px;
-  justify-content: center;
-}
 
 .isPlaying {
   border-color: #04AA6D;

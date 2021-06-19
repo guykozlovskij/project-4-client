@@ -41,7 +41,7 @@ button:hover, .fa-trash:hover {
     background-color: rgba(255, 255, 255, 0);  
     backdrop-filter: blur(5px);
     border-radius: 15px;
-    border: 0px solid;
+    border: none;
     padding-left: 10px;
   }
 }
@@ -123,11 +123,11 @@ button:hover, .fa-trash:hover {
 
 .delete-edit-buttons{
   display: flex;
+  flex-wrap: wrap;
   width: 50%;
   justify-content: center;
   button {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 5px;
     font-size: 15px;
     width: 100px;
     height: 30px;
@@ -140,11 +140,20 @@ button:hover, .fa-trash:hover {
   }
 }
 
-.bottom-buttons{
+.delete-confirm{
   display: flex;
-  justify-content: space-between;
-  width: 70%;
-  padding-bottom: 10px;
+  position:absolute;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  top: 25%;
+  left: 25%;
+  width: 50%;
+  height: 50%;
+  background-color: rgba(102, 0, 0, 0.774); 
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  color: whitesmoke;
   button {
     font-size: 15px;
     width: 100px;
@@ -161,25 +170,48 @@ button:hover, .fa-trash:hover {
   }
 
 
+  }
+
+
+.close {
+  background: none;
+  border: none;
+  color: whitesmoke;
+  position: absolute;
+  font-size: 15px;
+  cursor: pointer;
+  top: 4%;
+  right: 5%;
+  transition: all .5s ease-in-out;
+}
+.close:hover {
+  transform: scale(1.2);
+  font-weight: bold;
+}
+button:hover {
+  transform: scale(1.1)
+}
+
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  textArea {
+    background-color: rgba(255, 255, 255, 0);  
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    border: none;
+    padding: 10px;
+    color: whitesmoke;
+  }
+  button {
+    background: none;
+  }
 }
 
 
 
-.delete-confirm{
-  display: flex;
-  position:absolute;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  top: 25%;
-  left: 25%;
-  width: 50%;
-  height: 50%;
-  background-color: rgba(102, 0, 0, 0.774); 
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  color: whitesmoke;
-  button:hover {
-    transform: scale(1.1);
-  }
+textArea:focus, input:focus, select:focus, button:focus {
+  outline-width: 0;
 }

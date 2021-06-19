@@ -8,6 +8,7 @@ import Like from '../common/LikeButton'
 export default function Expanding({ songs, expandingId, playSong, id, setUpdate, update, handleExpand, setExpandingId }) {
   const { sub } = getPayload()
   const [isDeleting, setIsDeleting] = React.useState(false)
+  const [isCommenting, setIsCommenting] = React.useState(false)
   const history = useHistory()
   const { formData, handleChange, setFormdata } = useForm({
     content: '',
@@ -23,6 +24,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
       await addCommentToSong(formData, event.target.id)
       setUpdate(!update)
       setFormdata({ ...formData, content: '' })
+      setIsCommenting(false)
     } catch (err) {
       if (err.repsonse) {
         console.log(err.repsonse.data)
@@ -113,27 +115,31 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
 
       </div>
       <div className="delete-edit-buttons">
-        <button className="delete-button" onClick={handleDeleteConfirmationWindow}>Delete Song</button>
+        {isOwner(songs[expandingId].owner.id) && <button className="delete-button" onClick={handleDeleteConfirmationWindow}>Delete Song</button>}
         <button onClick={handleCopyAndEdit}>{isOwner(songs[expandingId].owner.id) ? 'Edit Song' : 'Copy Song'}</button>
+        <button onClick={() => setIsCommenting(!isCommenting)}>{!isCommenting ? 'Comment' : 'Cancel'}</button>
       </div>
-      {comments.length > 0 && <div className="comment-scroll">
-        {comments.map(comment => {
-          return (
-            <div key={comment.id} className="comment-div">
-              <div className='comment-text'>
-                <h4>{comment.owner.username}</h4>
-                <h3>{comment.content}</h3>
-              </div>
-              {isOwner(comment.owner.id) && <i onClick={handleDeleteComment} id={`${comment.id} ${songs[expandingId].id}`} className="fas fa-2 fa-trash"></i>
-              }
-            </div>
-          )
-        })}
-      </div>}
-      {
-        isAuthenticated() &&
+      {!isCommenting ?
+        <>
+          {comments.length > 0 && <div className="comment-scroll">
+            {comments.map(comment => {
+              return (
+                <div key={comment.id} className="comment-div">
+                  <div className='comment-text'>
+                    <h4>{comment.owner.username}</h4>
+                    <h3>{comment.content}</h3>
+                  </div>
+                  {isOwner(comment.owner.id) && <i onClick={handleDeleteComment} id={`${comment.id} ${songs[expandingId].id}`} className="fas fa-2 fa-trash"></i>
+                  }
+                </div>
+              )
+            })}
+          </div>
+          }
+        </>
+        :
         <section className="add-comment">
-          <form id={songs[expandingId].id} onSubmit={handleAddComment}>
+          <form className='commentForm' id={songs[expandingId].id} onSubmit={handleAddComment}>
             <textarea
               className="input"
               type="input"
@@ -142,26 +148,18 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
               value={formData.content}
               onChange={handleChange}
             />
-            <button type="submit">Comment</button>
+            <button type="submit"><i className='fas fa-2x fa-save'></i></button>
           </form>
         </section>
       }
-      <div className="bottom-buttons">
-        {/* <button onClick={handleCopyAndEdit}>{isOwner(songs[expandingId].owner.id) ? 'Edit Song' : 'Copy Song'}</button> */}
-        <button onClick={handleExpand}>Close</button>
-        {isOwner(songs[expandingId].owner.id) &&
-          <>
-            {/* <button className="delete-button" onClick={handleDeleteConfirmationWindow}>Delete Song</button> */}
-            {isDeleting &&
-              <div className="delete-confirm">
-                <span>Delete Song?</span>
-                <button value={songs[expandingId].id} onClick={handleDeleteSong}>Yes</button>
-                <button onClick={handleDeleteConfirmationWindow}>No</button>
-              </div>
-            }
-          </>
-        }
-      </div>
+      <button className='close' onClick={handleExpand}>X</button>
+      {isDeleting &&
+        <div className="delete-confirm">
+          <span>Delete Song?</span>
+          <button value={songs[expandingId].id} onClick={handleDeleteSong}>Yes</button>
+          <button onClick={handleDeleteConfirmationWindow}>No</button>
+        </div>
+      }
     </div >
   )
 }

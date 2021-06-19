@@ -13,6 +13,7 @@ export default function Grid() {
   const savedSong = getSavedSong()
   if (savedSong) Tone.Transport.bpm.value = savedSong.bpm
   const [isPlaying, setIsPlaying] = useState(false)
+  const [performance, setPerformance] = useState(true)
   const [bpm, setBpm] = useState(savedSong ? savedSong.bpm : 120)
   const history = useHistory()
   const { songId, name } = useParams()
@@ -25,13 +26,13 @@ export default function Grid() {
   gain.toDestination()
   
   const synths = new Tone.PolySynth().connect(gain)
-
+  console.log('here')
   const notes = Object.keys(allNotes)
 
   const repeat = (time) => {
     const step = stepper % 16
     // console.log('step', step)
-    setWhichBox(step)
+    if (!performance) setWhichBox(step)
     notes.forEach((note) => {
       if (allNotes[note][step]) {
         synths.triggerAttackRelease(note, '8n', time)
@@ -118,6 +119,7 @@ export default function Grid() {
         <input type='range' min='1' max='180' value={bpm} onChange={handleBpm} />
         <h3 id='bpm' >{bpm}</h3>
         <button onClick={isAuthenticated() ? handleSave : handleSaveNotLoggedIn}>Save Song</button>
+        <button onClick={() => setPerformance(!performance)}>Performance: {performance ? 'On' : 'Off'}</button>
       </div>
       {isSaving && <SaveSong bpm={bpm} allNotes={allNotes} handleSave={handleSave} />}
     </section>
