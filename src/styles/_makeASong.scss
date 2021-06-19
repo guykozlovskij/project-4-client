@@ -43,9 +43,7 @@
   border-color: #75b422;
 }
 
-.clicked {
-  background-color: rgb(255, 192, 192);
-}
+
 
 .controls{
   display: flex;
@@ -118,4 +116,29 @@
     // z-index: 0;
     
   }
+}
+
+.clicked.C5 {
+  background-color: rgb(243, 76, 76);
+}
+.clicked.B4 {
+  background-color: rgb(255, 115, 0);
+}
+.clicked.A4 {
+  background-color: rgb(243, 229, 31);
+}
+.clicked.G4 {
+  background-color: rgb(37, 184, 37);
+}
+.clicked.F4 {
+  background-color: rgb(30, 227, 241);
+}
+.clicked.E4 {
+  background-color: rgb(38, 38, 236);
+}
+.clicked.D4{
+  background-color: rgb(150, 20, 150);
+}
+.clicked.C4{
+  background-color: brown;
 }
