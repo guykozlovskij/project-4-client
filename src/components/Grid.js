@@ -33,7 +33,6 @@ export default function Grid() {
 
   const repeat = (time) => {
     const step = stepper % 16
-    // console.log('step', step)
     if (!performance) setWhichBox(step)
     notes.forEach((note) => {
       if (allNotes[note][step]) {
@@ -101,8 +100,6 @@ export default function Grid() {
     setSavedSong(allNotes, bpm)
     history.push('/login')
   }
-
-
 
 
 
