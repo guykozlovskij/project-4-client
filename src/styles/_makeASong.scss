@@ -26,13 +26,19 @@
   }
 }
 
+.note-parrent{
+  button{
+    flex: 1;
+    padding: 1.7em;
+    position: relative;
+    border: 2px solid transparent; 
+    margin: 1px;
+    background-color: rgb(255, 255, 255);
+  }
+}
+
 .music-button{
-  flex: 1;
-  padding: 1.7em;
-  position: relative;
-  border: 2px solid transparent; 
-  margin: 1px;
-  background-color: rgb(255, 255, 255);
+  width: 100%;
   // z-index: 0;
   
 }
