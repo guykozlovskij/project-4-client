@@ -108,7 +108,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
         {isOwner(songs[expandingId].owner.id) && <button onClick={handleEdit} className='editName'>{!edit ? <i className='fas fa-pen'></i> : <i className='fas fa-save'></i>}</button>}
       </div>
       <img id="user-image" src={songs[expandingId].owner.profileImage}></img>
-      <h3>{songs[expandingId].owner.username}</h3>
+      <h3 className="song-artist">{songs[expandingId].owner.username}</h3>
       <div className="expanded-like-and-play-button-div">
         <button className={`playButton ${id === songs[expandingId].id ? 'pause' : ''}`} name={expandingId} onClick={playSong}>
         </button>
