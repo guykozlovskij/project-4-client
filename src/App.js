@@ -7,18 +7,21 @@ import Grid from './components/Grid'
 import SongIndex from './components/index/SongIndex'
 
 function App() {
-  
+
   return (
-    <Router>
-      <Nav />
-      <Switch>
-        <Route exact path='/' component={Grid} />
-        <Route path='/login' component={Login} />
-        <Route path='/register' component={Register} />
-        <Route path='/songs' component={SongIndex} />
-        <Route path='/:songId/:name' component={Grid} />
-      </Switch>
-    </Router>
+    <>
+      <Router>
+        <Nav />
+        <Switch>
+          <Route exact path='/' component={Grid} />
+          <Route path='/login' component={Login} />
+          <Route path='/register' component={Register} />
+          <Route path='/songs' component={SongIndex} />
+          <Route path='/:songId/:name' component={Grid} />
+        </Switch>
+      </Router>
+      <h1 className='phoneRotate'>ROTATE YOUR PHONE</h1>
+    </>
   )
 }
 
