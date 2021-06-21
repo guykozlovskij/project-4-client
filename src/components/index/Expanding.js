@@ -151,8 +151,8 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
               value={formData.content}
               onChange={handleChange}
             />
-            <button type="submit"><i className='fas fa-2x fa-save'></i></button>
-            <p>Remaining Characters: {50 - formData.content.length}</p>
+            <button  type="submit"><i className='fas fa-2x fa-save'></i></button>
+            <p id="remaining-characters">Remaining Characters: {50 - formData.content.length}</p>
           </form>
         </section>
       }

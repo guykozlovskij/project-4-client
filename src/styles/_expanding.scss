@@ -149,6 +149,10 @@ button:hover, .fa-trash:hover {
   }
 }
 
+#remaining-characters{
+  margin-bottom: -5px;
+}
+
 .delete-edit-buttons{
   display: flex;
   flex-wrap: wrap;
@@ -244,3 +248,4 @@ button:hover {
 textArea:focus, input:focus, select:focus, button:focus {
   outline-width: 0;
 }
+

@@ -269,19 +269,3 @@ input[type=range] {
 
 
 
-
-@media (max-width: 600px) {
-  body{
-    
-  }
-  .music-button{
-    flex: 1;
-    padding: 0.7em;
-    position: relative;
-    border: 2px solid transparent; 
-    margin: 1px;
-    background-color: rgb(255, 255, 255);
-    // z-index: 0;
-    
-  }
-}
