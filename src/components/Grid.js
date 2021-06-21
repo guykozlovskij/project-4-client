@@ -13,7 +13,6 @@ export default function Grid() {
   const savedSong = getSavedSong()
   if (savedSong) Tone.Transport.bpm.value = savedSong.bpm
   const [isPlaying, setIsPlaying] = useState(false)
-  const [performance, setPerformance] = useState(true)
   const [bpm, setBpm] = useState(savedSong ? savedSong.bpm : 120)
   const history = useHistory()
   const { songId, name } = useParams()
@@ -31,7 +30,7 @@ export default function Grid() {
 
   const repeat = (time) => {
     const step = stepper % 16
-    if (!performance) setWhichBox(step)
+    setWhichBox(step)
     notes.forEach((note) => {
       if (allNotes[note][step]) {
         synths.triggerAttackRelease(note, '8n', time)
@@ -104,7 +103,7 @@ export default function Grid() {
       <div className="grid">
         {notes.map(note => {
           return (
-            <IndividualButton key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} isPlaying={isPlaying} synth={synths} performance={performance} step={whichBox} />
+            <IndividualButton key={note} note={note} buttonsSelected={allNotes[note]} setAllNotes={setAllNotes} allNotes={allNotes} isPlaying={isPlaying} synth={synths} step={whichBox} />
           )
         })}
         <div className="controls">
@@ -116,7 +115,6 @@ export default function Grid() {
           <button className={`playButton ${isPlaying ? 'pause' : ''}`} onClick={handlePlay}></button>
           <button id="save-button" onClick={isAuthenticated() ? handleSave : handleSaveNotLoggedIn} className='saveButton'><i className='fas  fa-3x fa-save'></i></button>
         </div>
-        <button id="performance-button" onClick={() => setPerformance(!performance)}>Performance: {performance ? 'On' : 'Off'}</button>
       </div>
       {isSaving && <SaveSong bpm={bpm} allNotes={allNotes} handleSave={handleSave} />}
     </section>
