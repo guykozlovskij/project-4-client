@@ -12,6 +12,7 @@
   display: flex;
   justify-content: center;
   width: auto;
+  
 }
 
 .grid{
@@ -105,7 +106,7 @@
   width:300px;  
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .music-button{
     flex: 1;
     padding: 0.5em;
