@@ -160,7 +160,7 @@ nav{
 }
 
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 900px) {
   .contents.display {
     width: 100%;
   }
@@ -173,6 +173,7 @@ nav{
   .contents {   
     .profileData { 
       img {
+        display: none;
         width: 120px;
         max-height: 150px;
         border-radius: 50%;

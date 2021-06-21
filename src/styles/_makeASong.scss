@@ -270,7 +270,7 @@ input[type=range] {
 
 
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .music-button{
     flex: 1;
     padding: 0.4em;
@@ -285,5 +285,8 @@ input[type=range] {
   }
   #slider {
     width: 200px;
+  }
+  .grid {
+    width: 90%;
   }
 }
