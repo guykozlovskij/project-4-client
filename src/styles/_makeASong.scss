@@ -41,7 +41,7 @@
 }
 
 .isPlaying {
-  border-color: #ffffff;
+  border-color: #c02424;
 }
 
 
@@ -269,3 +269,21 @@ input[type=range] {
 
 
 
+
+@media (max-width: 600px) {
+  .music-button{
+    flex: 1;
+    padding: 0.4em;
+    position: relative;
+    margin: 1px;
+    height: 20px;
+    background-color: rgb(255, 255, 255);
+    // z-index: 0;
+  }
+  .button-div{
+    width: 100%;
+  }
+  #slider {
+    width: 200px;
+  }
+}
