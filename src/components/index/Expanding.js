@@ -97,7 +97,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
 
 
   return (
-    <div className={`expanded-view ${id === songs[expandingId].id ? 'card-glow' : ''}`}>
+    <div className="expanded-view">
       <div className="song-title-div">
 
         {!edit ?
