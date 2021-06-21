@@ -20,7 +20,7 @@ function App() {
           <Route path='/:songId/:name' component={Grid} />
         </Switch>
       </Router>
-      <h1 className='phoneRotate'>ROTATE YOUR PHONE</h1>
+      <h1 className='phoneRotate'>plase rotate your phone :)</h1>
     </>
   )
 }
