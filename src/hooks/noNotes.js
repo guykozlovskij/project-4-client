@@ -1,12 +1,12 @@
 export default function noNotes() {
   return {
-    C5: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-    B4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-    A4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-    G4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-    F4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-    E4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-    D4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-    C4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    c5: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    b4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    a4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    g4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    f4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    e4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    d4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+    c4: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
   }
 }

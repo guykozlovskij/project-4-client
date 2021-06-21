@@ -17,8 +17,7 @@ export default function SaveSong({ bpm, allNotes, handleSave }) {
       notes: allNotes,
     }
     try {
-      const { data } = await createSong(songToSubmit)
-      console.log(data)
+      await createSong(songToSubmit)
       history.push('/songs')
     } catch (error) {
       setError(error.response.data.name)

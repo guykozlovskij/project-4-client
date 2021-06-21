@@ -23,7 +23,6 @@ export default function Grid() {
   const [allNotes, setAllNotes] = useState(savedSong ? savedSong.allNotes : noNotes)
   const gain = new Tone.Gain(0.1)
   gain.toDestination()
-
   const synths = new Tone.PolySynth().connect(gain)
   const notes = Object.keys(allNotes)
 

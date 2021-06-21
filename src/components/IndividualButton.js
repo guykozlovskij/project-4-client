@@ -9,7 +9,7 @@ export default function IndividualButton({ note, buttonsSelected, setAllNotes, a
     <div className='button-div'>
       {buttonsSelected.map((isOn, index) => {
         return (
-          <button key={index} value={index} className={`music-button ${isOn ? 'clicked' : ''} ${index === step && isPlaying && isOn ? 'isPlaying' : ''} ${note}`} onClick={handleClick}>
+          <button key={index} value={index} className={`music-button ${isOn ? `clicked ${note}` : ''} ${index === step && isPlaying && isOn ? 'isPlaying' : ''}`} onClick={handleClick}>
           </button>
         )
       })}
