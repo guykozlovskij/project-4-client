@@ -1,8 +1,8 @@
 
-.testDiv {
+.button-div {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   font-size: 20px;
   margin: 0 5px;
   // z-index: -1;
@@ -102,21 +102,6 @@
   border: none;
 }
 
-
-
-
-@media (max-width: 600px) {
-  .music-button{
-    flex: 1;
-    padding: 0.5em;
-    position: relative;
-    border: 2px solid transparent; 
-    margin: 1px;
-    background-color: rgb(255, 255, 255);
-    // z-index: 0;
-    
-  }
-}
 
 .clicked.C5 {
   background-color: rgb(254, 200, 216);
@@ -280,4 +265,20 @@ input[type=range] {
 
 #slider{
   width: 400px;  
+}
+
+
+
+
+@media (max-width: 600px) {
+  .music-button{
+    flex: 1;
+    padding: 0.5em;
+    position: relative;
+    border: 2px solid transparent; 
+    margin: 1px;
+    background-color: rgb(255, 255, 255);
+    // z-index: 0;
+    
+  }
 }
