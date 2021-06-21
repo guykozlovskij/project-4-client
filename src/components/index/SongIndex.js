@@ -120,7 +120,7 @@ export default function SongIndex() {
       <section className="song-grid">
         {songs && (filteredSongs(songs, filter, sub, filterBy).map((song, index) => {
           return (
-            <div className="song-card" key={song.id}>
+            <div className={`song-card ${id === song.id ? 'card-glow' : ''}`} key={song.id}>
               <h3>{song.name}</h3>
               <div className='playAndLike'>
                 <button name={index} onClick={playSong} className={`playButton ${id === song.id ? 'pause' : ''}`}>

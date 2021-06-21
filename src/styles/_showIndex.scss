@@ -139,3 +139,7 @@ h1, h2, h3, h4, p {
   transform: rotate(90deg);
 }
 
+.card-glow{
+  transition: all .5s ease-in-out;
+  box-shadow: 0px 0px 100px 20px whitesmoke;
+}
