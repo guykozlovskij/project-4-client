@@ -12,6 +12,7 @@
   display: flex;
   justify-content: center;
   width: auto;
+  
 }
 
 .grid{
@@ -40,7 +41,7 @@
 }
 
 .isPlaying {
-  border-color: #b12020;
+  border-color: #ffffff;
 }
 
 
@@ -102,7 +103,7 @@
 }
 
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .music-button{
     flex: 1;
     padding: 0.5em;

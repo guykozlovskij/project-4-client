@@ -166,8 +166,17 @@ nav{
   }
   nav{
     .homeLink{
-      font-size: 30px;
-      
+      font-size: 40px;
+
     }
+  }
+  .contents {   
+    .profileData { 
+        img {
+          width: 120px;
+          max-height: 150px;
+          border-radius: 50%;
+        }
+      }
   }
 }
