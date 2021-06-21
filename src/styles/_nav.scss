@@ -10,7 +10,7 @@ nav{
     margin-top: 30px;
     font-size: 60px;
     letter-spacing: 4px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
 }
 
@@ -76,6 +76,7 @@ nav{
   background-color: rgba(168, 168, 168, 0.295); 
   backdrop-filter: blur(20px);
   transition: all .5s ease-in-out;
+  
   .profileData {
     transition: all .5s ease-in-out;
     transform: translateX(-200px);
@@ -85,6 +86,7 @@ nav{
     justify-content: space-evenly;
     height: 70%;
     width: 300px;
+   
       img {
         width: 150px;
         max-height: 150px;
@@ -100,6 +102,7 @@ nav{
       flex-wrap: wrap;
       justify-content: space-evenly;
       text-align: center;
+      
       .navLink {
         display: flex;
         align-items: center;
@@ -150,7 +153,7 @@ nav{
   }
 }
 .contents.display {
-  width: 25%;
+  width: 300px;
   .profileData, .otherLinks {
     display: flex;
     transform: translateX(0);
@@ -160,6 +163,12 @@ nav{
 
 @media only screen and (max-width: 600px) {
   .contents.display {
-    width: 50%;
+    width: 100%;
+  }
+  nav{
+    .homeLink{
+      font-size: 30px;
+      
+    }
   }
 }
