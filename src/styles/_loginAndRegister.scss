@@ -130,3 +130,37 @@
     }
   }
 }
+
+@media (max-width: 900px) {
+  .formBackground {
+    height: auto;
+    width: 100%;
+    .register-section.hasImage {
+      height: 100%;
+    }
+    .register-section{
+      height: 100%;
+      .register-form{
+        label, input, button, img, .error{
+          margin: 5px;
+        }
+        height: 100%;
+      }
+    }
+  }
+  .login-section{
+    height: 100%;
+    .login-form{
+      height: 100%;
+      label, input, button, img, .error{
+        margin: 5px;
+      }
+    }
+  }
+  nav{
+    .homeLink{
+      font-size: 30px;
+      margin-bottom: 0px;
+    }
+  }
+}

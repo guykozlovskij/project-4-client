@@ -41,6 +41,7 @@ export default function Register() {
         <form className='register-form' onSubmit={handleSubmit}>
           <label>Username</label>
           <input
+            maxLength="15"
             placeholder="Username"
             onChange={handleChange}
             name="username"

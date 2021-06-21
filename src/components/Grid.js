@@ -56,7 +56,7 @@ export default function Grid() {
       await Tone.Transport.stop()
       await Tone.Transport.clear(transportEventId.current)
       setIsPlaying(!isPlaying)
-
+      // await Tone.Transport.dispose(transportEventId.current)
     }
   }
   const handleBpm = (e) => {
