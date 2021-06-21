@@ -24,8 +24,7 @@ export default function Grid() {
   const comp = new Tone.Compressor(-30, 3)
   const gain = new Tone.Gain(0.1).connect(comp)
   comp.toDestination()
-  // const synths = new Tone.PolySynth().connect(gain)
-  const [synths, setSynths] = useState(new Tone.PolySynth().connect(gain))
+  const synths = new Tone.PolySynth().connect(gain)
   const notes = Object.keys(allNotes)
 
 
@@ -71,8 +70,6 @@ export default function Grid() {
     setIsPlaying(false)
     await Tone.Transport.stop()
     await Tone.Transport.clear(transportEventId.current)
-    await Tone.Transport.dispose()
-    setSynths(new Tone.PolySynth().connect(gain))
 
   }
   const handleSave = async () => {
