@@ -23,12 +23,11 @@ export default function Grid() {
   const transportEventId = useRef(null)
   const [allNotes, setAllNotes] = useState(savedSong ? savedSong.allNotes : noNotes)
   const gain = new Tone.Gain(0.1)
+  const array = ['a','b','c','d','e','f','g','h','i','j','k','l','o','p','q','r']
   gain.toDestination()
 
   const synths = new Tone.PolySynth().connect(gain)
-  console.log('here')
   const notes = Object.keys(allNotes)
-  console.log(notes)
 
 
   const repeat = (time) => {
@@ -100,8 +99,6 @@ export default function Grid() {
     setSavedSong(allNotes, bpm)
     history.push('/login')
   }
-
-
 
   return (
     <section className="grid-parent">
