@@ -21,11 +21,16 @@ export default function Grid() {
   const [whichBox, setWhichBox] = useState(0)
   const transportEventId = useRef(null)
   const [allNotes, setAllNotes] = useState(savedSong ? savedSong.allNotes : noNotes)
-  const comp = new Tone.Compressor(-30, 3)
-  const gain = new Tone.Gain(0.1).connect(comp)
-  comp.toDestination()
+
+  const gain = new Tone.Gain(0.1).toDestination()
   const synths = new Tone.PolySynth().connect(gain)
   const notes = Object.keys(allNotes)
+
+  // const comp = new Tone.Compressor(-30, 3)
+  // const gain = new Tone.Gain(0.1).connect(comp)
+  // comp.toDestination()
+  // const synths = new Tone.PolySynth().connect(gain)
+  // const notes = Object.keys(allNotes)
 
 
   const repeat = (time) => {
