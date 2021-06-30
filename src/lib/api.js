@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { getToken } from './auth'
-const baseUrl = '/api'
+import { baseUrl } from '../config'
 
 function headers() {
   return {
@@ -26,7 +26,7 @@ export function createSong(formData) {
   return axios.post(`${baseUrl}/songs/`, formData, headers())
 }
 
-export function getAllSongs(){
+export function getAllSongs() {
   return axios.get(`${baseUrl}/songs/`)
 }
 
@@ -39,15 +39,15 @@ export function editSong(formData, id) {
 }
 
 // export function deleteSongs
-export function deleteSong(id){
+export function deleteSong(id) {
   return axios.delete(`${baseUrl}/songs/${id}/`, headers())
 }
 
 //? Comment Requests 
-export function addCommentToSong(formdata, id){
+export function addCommentToSong(formdata, id) {
   return axios.post(`${baseUrl}/songs/${id}/comments/`, formdata, headers())
 }
 
-export function deleteCommentInSong(id, commentId){
+export function deleteCommentInSong(id, commentId) {
   return axios.delete(`${baseUrl}/songs/${id}/comments/${commentId}/`, headers())
 }
