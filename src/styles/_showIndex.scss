@@ -1,0 +1,145 @@
+.song-index-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+}
+.song-grid{
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  flex-wrap: wrap;
+  max-width: 920px;
+  justify-content: center;
+}
+
+.filterOptions {
+  display: flex;
+
+  align-items: center;
+  select {
+    height: 35px;
+    width: 100px;
+    background-color: rgba(255, 255, 255, .15);
+    color: whitesmoke;
+    font-size: 16px;
+    padding: 0 10px;  
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    border: none;
+  }
+}
+.search-bar{
+  margin: 15px;
+  height: 35px;
+  width: 200px;
+  font-size: 20px;
+  font-weight: normal;
+  color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, .15);  
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+  border: none;
+  padding-left: 10px;
+  }
+
+  ::-webkit-input-placeholder { 
+      color: rgba(255, 255, 255, 0.432);
+      font-weight: normal;
+      opacity: 15; 
+    }
+
+
+
+.song-card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  font-weight: normal;
+  width: 240px;
+  margin: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 0px;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, .15);  
+  backdrop-filter: blur(5px);
+}
+
+h1, h2, h3, h4, p {
+  font-weight: normal;
+  margin: 3px;
+  
+}
+
+.playAndLike{
+  margin: 10px 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.playButton {
+  background-color: transparent;
+  width: 0;
+  height: 30px;
+  border-style: solid;
+  border-width: 16px 0 16px 25px;
+  border-color: transparent transparent transparent #ffffff;
+  cursor: pointer;
+  will-change: border-width;
+  transition: all .2s ease;
+  
+}
+.pause {
+  border-style: double;
+  border-width: 0px 0 0px 25px;
+}
+.fas, .far{
+  color: rgb(255, 255, 255);
+}
+
+
+
+.fa-heart:hover {
+  transition: all .25s ease-in-out;
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.expand {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(187, 187, 187, 0.575);  
+  backdrop-filter: blur(5px);
+  border-radius: 50%;
+  border: 0px solid;
+  border-color: rgba(56, 48, 48, 0.726); ;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
+}
+.expand::before, .expand::after {
+  content: '';
+  position: absolute;
+  height: 20px;
+  width: 5px;
+  background-color: whitesmoke;
+  transition: all .5s ease-in-out;
+}
+.expand::before{
+  transform: translateX(-2.5px) translateY(-10px);
+}
+.expand::after{
+  transform: rotate(90deg) translateX(-10px) translateY(2.5px);
+}
+.expand:hover{
+  transform: rotate(90deg);
+}
+
+.card-glow{
+  transition: all .5s ease-in-out;
+  box-shadow: 0px 0px 100px 15px whitesmoke;
+}
