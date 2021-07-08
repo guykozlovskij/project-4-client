@@ -4,7 +4,7 @@
 # note-it-down 
 By [Guy Kozlovskij](https://github.com/guykozlovskij) and [Chris Wood](https://github.com/Chrisw00d1).
 
-A Django, PostgresSQL, React full-stack app. This is the final project for General Assembly's Software Engineering Immersive course.
+A Django, PostgreSQL, React full-stack app. This is the final project for General Assembly's Software Engineering Immersive course.
 
 **note-it-down** is a fun and simple music maker allowing users to create and share songs.
 
@@ -15,6 +15,31 @@ A Django, PostgresSQL, React full-stack app. This is the final project for Gener
 Project backend can be found [here](https://github.com/guykozlovskij/project-4-server).
 
 ## Table of Contents
+* [Overview](#overview)
+* [Brief](#brief)
+* [Technologies Used](#technologies)
+* [Approach](#approach)
+  * [Whiteboarding](#whiteboarding)
+    * [Models](#models)
+    * [Splitting the Workload](#workload)
+* [Backend](#backend)
+  * [Models and Database](#models-and-db)
+  * [Views](#views)
+* [Frontend](#frontend)
+  * [Tone.js](#tone)
+  * [Splitting Up](#splitting)
+    * [The Design](#design)
+    * [Song Index](#index)
+    * [Song Expanded](#expanded)
+    * [Playing the Songs](#playing)
+    * [The Grid](#grid)
+    * [Navbar](#navbar)
+* [Final Thoughts](#thoughts)
+  * [Wins and Challenges](#wins)
+  * [Lessons Learned](#lessons)
+  * [Improvements](#improvements)
+
+<a name="overview"></a>
 
 ## Overview
 For our fourth and final project at **General Assembly's Software Engineering Immersive Course** we were given 7 days to build a full stack website. After some consideration we deiced to build something that allows users to create and share their creations. 
@@ -23,14 +48,18 @@ For our fourth and final project at **General Assembly's Software Engineering Im
 
 We deployed our app using [Heroku](https://www.heroku.com/) and [Netlify](https://www.netlify.com/).
 
+<a name="brief"></a>
+
 ## Brief
-- Choose to work as either pair, group or solo
+- Choose to work as either a pair, group or solo
 - Build a full-stack application by making our own backend and frontend 
 - Use a Python Django API, using Django REST Framework to serve our data from a PostgresSQL database
 - Consume the API with  a separate frontend built with React
 - Build a complete product, which most likely means multiple relationships and CRUD functionality for at least a couple of models
 - Have a visually impressive design 
 - Have it deployed online so it's publicly accessible
+
+<a name="technologies"></a>
 
 ## Technologies Used
 - JavaScript (ES6)
@@ -48,27 +77,42 @@ We deployed our app using [Heroku](https://www.heroku.com/) and [Netlify](https:
 - Excalidraw
 - Heroku and Netlify
 
+<a name="approach"></a>
+
 ## Approach 
 We started by planning out the layout of our website and understanding exactly how we would like to style it. We knew our models would not be very complex so our focus was to complete the backend in 2 days and transition into working with **Tone.js** and making our app look stunning.
 
+<a name="planning"></a>
+
 ### Planning
+
+<a name="whiteboarding"></a>
+
 #### Whiteboarding
 From the beginning, we had a good sense of direction and an idea of what the project will look like. The vision was clear, and in the end the final product closely resembled the initial sketch we made on [Excalidraw](https://excalidraw.com/).
 
 ![](/readme-img/comparison.png)
+
+<a name="models"></a>
 
 #### Models
 On the same day we also planned out our models. We knew there would not be any complex relationship, as the focus of the user experience is the creation of songs. We decided to keep it simple and only keep it to three models. 
 
 ![](/readme-img/erd.png)
 
+<a name="workload"></a>
+
 #### Splitting the Workload
 Once everything has been planned out we proceeded to split up, with Chris starting to work with **Tone.js** in the frontend while I went to build the backend. 
 
 The goal was to finish the backend in a few days so we can can spend most our time working on the frontend together. 
 
+<a name="backend"></a>
+
 ## Backend
 I started out by scaffolding the backend, adding the PostgreSQL database, installing dependencies and setting up the apps for the backed.
+
+<a name="models-and-db"></a>
 
 ### Models and Database
 I first started working on our models. Once the **user** model has been setup I moved on to the **song** model which held one of our main challenges - storing the songs.
@@ -120,6 +164,8 @@ class Song(models.Model):
         return f'{self.name}'
 ```
 
+<a name="views"></a>
+
 ### Views
 Upon finishing the serializers for the models and implementing authentication I moved on to creating the views and testing them in `client.http` as I went along. The process went by smoothly which is a testament to how far we have gone in the course. 
 
@@ -145,8 +191,12 @@ class SongLikedView(APIView):
 
 I discovered that unlike with Express, which I worked on in the previous project, many things in Django are very streamlined as simplified, such as cascading in deletion. 
 
+<a name="frontend"></a>
+
 ## Frontend
 Once the backend was put into place, rejoined Chris to continue working on the frontend. **Tone.js** was used for our sound grid and we spend much time studying it and reading the documentation. 
+
+<a name="tone"></a>
 
 ### Tone.js
 By the time I joined Chris, he already had a good understanding of how **Tone.js** worked and has set up most of the player. 
@@ -181,11 +231,18 @@ const repeat = (time) => {
   stepper++
 }
 ```
+
+<a name="splitting"></a>
+
 ### Splitting Up 
 We once again decided to split the workload. As Chris went on to work functionality such register, login, cloning and editing songs, I proceeded build the Song Index page, Song Expanded view and took the lead establishing a visual theme for our website. 
 
+<a name="design"></a>
+
 #### The Design
 Inspired by iOS, I wanted our website to have a beautiful minimalist look using a pastel palette and frosted glass effect to closely resemble an iPhone homepage.
+
+<a name="index"></a>
 
 #### Song Index 
 I started building the song index page a simple GET request for the songs and proceeded to create and elegant card to display them.
@@ -198,10 +255,14 @@ Although the play button would transform if a song is played we realized it may 
 
 Since we were driven by a minimalist theme we decided to only keep a name and a few buttons on our cards. This gave birth to the expanded view. 
 
+<a name="expanded"></a>
+
 #### Song Expanded 
 The expanded view contains most of the functionality allowing owners to edit and delete and authenticated users to comment and clone. 
 
 ![](/readme-img/expanded.gif)
+
+<a name="playing"></a>
 
 #### Playing the Songs
 Playing songs required implementing Tone.js once more and this time passing the notes from our API to the player, rather than taking them from the grid. 
@@ -240,17 +301,25 @@ This only had to be done in the `SongIndex`. Although expanded view is a separat
   setExpandingId={setExpandingId} />}
 ```
 
+<a name="grid"></a>
+
 #### The Grid
 In the designing of the Grid we selected a pastel palette with beautiful colours making the process of placing notes warm and welcoming. Each of the rows is assigned the same colour helping the user identify the notes with visually in addition to hearing the note on click. 
 
 ![](/readme-img/grid.gif)
+
+<a name="navbar"></a>
 
 #### Navbar
 Finally to preserve the clean look of the website, instead of having persistent navbar at the top of our website, Chris implemented a beautiful sidebar which we designed using the frosted glass effect seen throughout the whole app. 
 
 ![](/readme-img/nav.gif)
 
+<a name="thoughts"></a>
+
 ## Final Thoughts
+
+<a name="wins"></a>
 
 ### Wins and Challenges
 - **Tone.js**: working with this library was not easy and required thorough reading of documentation and studying other people's applications. Although we are happy with the final product we could not prevent the player braking when using the app for too long or placing too many notes.  
@@ -259,8 +328,12 @@ Finally to preserve the clean look of the website, instead of having persistent 
 
 ![](/readme-img/mobile.gif)
 
+<a name="lessons"></a>
+
 ### Lessons Learned
 - **Having Fun is Key**: This project has been hands down the most enjoyable to work on. I believe this is due to us making something we genuinely enjoyed playing with as well as keeping the scale of the project neither too big or too small. Although we did encounter roadblocks we could take a break and any point and just go and make some music 🎹🎶.
+
+<a name="improvements"></a>
 
 ### Improvements
 - We would like to comeback to **Tone.js** having better understanding of it and fix the sound breaking issues.
