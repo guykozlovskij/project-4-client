@@ -26,12 +26,6 @@ export default function Grid() {
   const synths = new Tone.PolySynth().connect(gain)
   const notes = Object.keys(allNotes)
 
-  // const comp = new Tone.Compressor(-30, 3)
-  // const gain = new Tone.Gain(0.1).connect(comp)
-  // comp.toDestination()
-  // const synths = new Tone.PolySynth().connect(gain)
-  // const notes = Object.keys(allNotes)
-
 
   const repeat = (time) => {
     const step = stepper % 16
@@ -40,7 +34,6 @@ export default function Grid() {
       if (allNotes[note][step]) {
         synths.triggerAttackRelease(note, '8n', time)
       }
-
     })
     stepper++
   }
@@ -52,9 +45,6 @@ export default function Grid() {
       setSongId(eventId)
       transportEventId.current = eventId
       await Tone.Time('1m')
-
-
-
       await Tone.Transport.start()
       setIsPlaying(!isPlaying)
 
@@ -62,7 +52,6 @@ export default function Grid() {
       await Tone.Transport.stop()
       await Tone.Transport.clear(transportEventId.current)
       setIsPlaying(!isPlaying)
-      // await Tone.Transport.dispose(transportEventId.current)
     }
   }
   const handleBpm = (e) => {
