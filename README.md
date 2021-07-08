@@ -80,7 +80,7 @@ We deployed our app using [Heroku](https://www.heroku.com/) and [Netlify](https:
 <a name="approach"></a>
 
 ## Approach 
-We started by planning out the layout of our website and understanding exactly how we would like to style it. We knew our models would not be very complex so our focus was to complete the backend in 2 days and transition into working with **Tone.js** and making our app look stunning.
+We started by planning-out the layout of our website and understanding exactly how we would like to style it. We knew our models would not be very complex, so our focus was to complete the backend in 2 days and transition into working with **Tone.js** and making our app look stunning.
 
 <a name="planning"></a>
 
@@ -89,35 +89,33 @@ We started by planning out the layout of our website and understanding exactly h
 <a name="whiteboarding"></a>
 
 #### Whiteboarding
-From the beginning, we had a good sense of direction and an idea of what the project will look like. The vision was clear, and in the end the final product closely resembled the initial sketch we made on [Excalidraw](https://excalidraw.com/).
+From the very beginning, we had a good sense of direction and an idea of what the project will look like. The vision was clear, and in the end the final product closely resembled the initial sketch we made on [Excalidraw](https://excalidraw.com/).
 
 ![](/readme-img/comparison.png)
 
 <a name="models"></a>
 
 #### Models
-On the same day we also planned out our models. We knew there would not be any complex relationship, as the focus of the user experience is the creation of songs. We decided to keep it simple and only keep it to three models. 
+On the same day we also planned-out our models. We knew there would not be any complex relationship, as the focus of the user experience is the creation of songs. We decided to keep it simple and only have three models. 
 
 ![](/readme-img/erd.png)
 
 <a name="workload"></a>
 
 #### Splitting the Workload
-Once everything has been planned out we proceeded to split up, with Chris starting to work with **Tone.js** in the frontend while I went to build the backend. 
-
-The goal was to finish the backend in a few days so we can can spend most our time working on the frontend together. 
+Once everything has been planned-out we proceeded to split up, with Chris starting to work with **Tone.js** in the frontend while I went to build the backend. 
 
 <a name="backend"></a>
 
 ## Backend
-I started out by scaffolding the backend, adding the PostgreSQL database, installing dependencies and setting up the apps for the backed.
+I started out by scaffolding the backend, adding the PostgreSQL database, installing dependencies and setting up the Django apps for the backed.
 
 <a name="models-and-db"></a>
 
 ### Models and Database
-I first started working on our models. Once the **user** model has been setup I moved on to the **song** model which held one of our main challenges - storing the songs.
+I first started working on our models. Once the **user** model has been setup I moved on to the **song** model which contained one of our main challenges - storing the songs.
 
-After spending sometime with **Tone.js** in the frontend, Chris understood that we will be storing the `notes` for songs in arrays of boolean values, one for each of the grid blocks. 
+After spending some time with **Tone.js** in the frontend, Chris understood that we will be storing the `notes` for songs in arrays of boolean values, one for each of the grid blocks. 
 
 <a name="no-notes"></a>
 
@@ -194,12 +192,12 @@ I discovered that unlike with Express, which I worked on in the previous project
 <a name="frontend"></a>
 
 ## Frontend
-Once the backend was put into place, rejoined Chris to continue working on the frontend. **Tone.js** was used for our sound grid and we spend much time studying it and reading the documentation. 
+Once the backend was put into place, I rejoined Chris to continue working on the frontend. **Tone.js** was used for our sound grid and we spent much time studying it and reading the documentation. 
 
 <a name="tone"></a>
 
 ### Tone.js
-By the time I joined Chris, he already had a good understanding of how **Tone.js** worked and has set up most of the player. 
+By the time I joined Chris, he already had made major steps forward with **Tone.js**, and has set up most of the player. 
 
 The grid of notes was set in the `noNotes` hook show [previously](#no-notes) and assigned in the `Grid` where our music player lives.
 
@@ -217,7 +215,7 @@ const synths = new Tone.PolySynth().connect(gain)
 const notes = Object.keys(allNotes)
 ```
 
-The repeat then plays the notes in a sequence working in a similar way as a `setInterval`. We also used the repeater to highlight the currently playing notes in our `<IndividualButton>`, by setting a class and transforming in CSS. 
+The repeater then plays the notes in a sequence working in a similar way as a `setInterval`. We also used the repeater to highlight the currently playing notes in our `<IndividualButton>`, by setting a class and transforming in CSS. 
 
 ```js
 const repeat = (time) => {
@@ -235,7 +233,7 @@ const repeat = (time) => {
 <a name="splitting"></a>
 
 ### Splitting Up 
-We once again decided to split the workload. As Chris went on to work functionality such register, login, cloning and editing songs, I proceeded build the Song Index page, Song Expanded view and took the lead establishing a visual theme for our website. 
+We once again decided to split the workload. As Chris went on to work on functionalities such register, login, cloning and editing songs, I proceeded build the Song Index page, Song Expanded view and took the lead establishing a visual theme for our website. 
 
 <a name="design"></a>
 
@@ -245,7 +243,7 @@ Inspired by iOS, I wanted our website to have a beautiful minimalist look using 
 <a name="index"></a>
 
 #### Song Index 
-I started building the song index page a simple GET request for the songs and proceeded to create and elegant card to display them.
+I started building the song index page by making simple GET request for the songs and proceeded to create and elegant card to display them.
 
 ![](/readme-img/song-index.png)
 
@@ -287,7 +285,7 @@ const playSong = async (e) => {
     }
 ```
 
-This only had to be done in the `SongIndex`. Although expanded view is a separate component, we managed to use the same `playSong` function in both of the components to have a seamless experience of playing and switching between songs regardless of being in the index page or expanded view. 
+This only had to be done in the `SongIndex`. We managed to use the same `playSong` function in both the index and expanded view to have a seamless experience of playing and switching between songs and views by passing it from one component to another.
 
 ```js
 { expandingId && <Expanding 
@@ -304,14 +302,14 @@ This only had to be done in the `SongIndex`. Although expanded view is a separat
 <a name="grid"></a>
 
 #### The Grid
-In the designing of the Grid we selected a pastel palette with beautiful colours making the process of placing notes warm and welcoming. Each of the rows is assigned the same colour helping the user identify the notes with visually in addition to hearing the note on click. 
+In the designing of the Grid, we selected a pastel palette with beautiful colours making the process of placing notes warm and welcoming. Each of the rows is assigned the same colour helping the user identify the notes visually in addition to hearing the note on click. 
 
 ![](/readme-img/grid.gif)
 
 <a name="navbar"></a>
 
 #### Navbar
-Finally to preserve the clean look of the website, instead of having persistent navbar at the top of our website, Chris implemented a beautiful sidebar which we designed using the frosted glass effect seen throughout the whole app. 
+Finally, to preserve the clean look of the website, instead of having persistent navbar at the top, Chris implemented a beautiful sidebar which we designed using the frosted glass effect seen throughout the whole app. 
 
 ![](/readme-img/nav.gif)
 
@@ -324,17 +322,17 @@ Finally to preserve the clean look of the website, instead of having persistent 
 ### Wins and Challenges
 - **Tone.js**: working with this library was not easy and required thorough reading of documentation and studying other people's applications. Although we are happy with the final product we could not prevent the player braking when using the app for too long or placing too many notes.  
 
-- **Responsive Design**: Due to us being on track with development and always moving along at a good pace, we had 1 day to try and make "note-it-down" mobile friendly. We are incredibly happy with how it turned out and it really gave the app the feeling of being a finished product. 
+- **Responsive Design**: Due to us being on track with development and always moving along at a good pace, we had 1 day to try and make "note-it-down" mobile friendly. We are incredibly happy with how it turned out as it really gave the app the feeling of being a finished product. 
 
 ![](/readme-img/mobile.gif)
 
 <a name="lessons"></a>
 
 ### Lessons Learned
-- **Having Fun is Key**: This project has been hands down the most enjoyable to work on. I believe this is due to us making something we genuinely enjoyed playing with as well as keeping the scale of the project neither too big or too small. Although we did encounter roadblocks we could take a break and any point and just go and make some music 🎹🎶.
+- **Having Fun is Key**: This project has been hands down the most enjoyable to work on. I believe this is due to us making something we genuinely enjoyed playing with as well as keeping the scale of the project neither too big or too small. Although we did encounter roadblocks, we could take a break and any point and just go and make some music 🎹🎶.
 
 <a name="improvements"></a>
 
 ### Improvements
 - We would like to comeback to **Tone.js** having better understanding of it and fix the sound breaking issues.
-- Working the media queries and better optimizing for different phone screen sizes.
+- Optimizing for different sized phone screens by adding more responsiveness.
