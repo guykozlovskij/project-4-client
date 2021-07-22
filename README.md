@@ -10,7 +10,7 @@ A Django, PostgreSQL, React full-stack app. This is the final project for Genera
 
 ## [Try it out!](https://note-it-down-app.netlify.app/)
 
-![](/readme-img/intro.gif)
+<img src="readme-img/intro.gif" alt=""/>
 
 Project backend can be found [here](https://github.com/guykozlovskij/project-4-server).
 
