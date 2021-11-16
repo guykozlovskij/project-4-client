@@ -12,18 +12,27 @@ import { editSong } from '../lib/api.js'
 export default function Grid() {
   const savedSong = getSavedSong()
   if (savedSong) Tone.Transport.bpm.value = savedSong.bpm
+
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const [whichBox, setWhichBox] = useState(0)
+  const [allNotes, setAllNotes] = useState(savedSong ? savedSong.allNotes : noNotes)
+  const { songId, name } = useParams()
   const [bpm, setBpm] = useState(savedSong ? savedSong.bpm : 120)
   const history = useHistory()
-  const { songId, name } = useParams()
-  const [isSaving, setIsSaving] = useState(false)
+  
+  const [selectedSynth, setSelectedSynth] = useState('PolySynth')
+  
+  const handleSynthSelect = (e) => {
+    setSelectedSynth(e.target.value)
+  }
+
   let stepper = 0
-  const [whichBox, setWhichBox] = useState(0)
   const transportEventId = useRef(null)
-  const [allNotes, setAllNotes] = useState(savedSong ? savedSong.allNotes : noNotes)
 
   const gain = new Tone.Gain(0.1).toDestination()
-  const synths = new Tone.PolySynth().connect(gain)
+  // const synths = new Tone.PolySynth().connect(gain)
+  const synths = new Tone[selectedSynth]().connect(gain)
   const notes = Object.keys(allNotes)
 
 
@@ -77,6 +86,7 @@ export default function Grid() {
         name: name,
         tempo: bpm,
         notes: allNotes,
+        synth: selectedSynth,
       }
       try {
         await editSong(songToSubmit, songId)
@@ -105,12 +115,16 @@ export default function Grid() {
           <div id="bpm-controls">
             <input id="slider" type='range' min='1' max='180' value={bpm} onChange={handleBpm} />
             <h3 id='bpm' >{bpm}</h3>
+            <select id="synth-select" onChange={handleSynthSelect}>
+              <option>PolySynth</option>
+              <option>MetalSynth</option>
+            </select>
           </div>
           <button className={`playButton ${isPlaying ? 'pause' : ''}`} onClick={handlePlay}></button>
           <button id="save-button" onClick={isAuthenticated() ? handleSave : handleSaveNotLoggedIn} className='saveButton'><i className='fas  fa-3x fa-save'></i></button>
         </div>
       </div>
-      {isSaving && <SaveSong bpm={bpm} allNotes={allNotes} handleSave={handleSave} />}
+      {isSaving && <SaveSong bpm={bpm} allNotes={allNotes} handleSave={handleSave} selectedSynth={selectedSynth} />}
     </section>
   )
 }

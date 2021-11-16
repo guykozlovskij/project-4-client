@@ -22,6 +22,9 @@ function filteredSongs(songs, filter, sub, filterBy) {
   if (filterBy === 'A-Z'){
     return beenFiltered.sort((a, b) => a.name.localeCompare(b.name))
   }
+  if (filterBy === 'Creator'){
+    return beenFiltered.sort((a, b) => a.name.localeCompare(b.name))
+  }
   return beenFiltered.sort((a,b) => b.likedBy.length - a.likedBy.length)
 }
 
@@ -115,6 +118,7 @@ export default function SongIndex() {
         <select onChange={handleFilterBy}>
           <option>A-Z</option>
           <option>Likes</option>
+          <option>Creator</option>
         </select>
       </div>
       <section className="song-grid">

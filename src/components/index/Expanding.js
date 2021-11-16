@@ -34,6 +34,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
     }
   }
 
+
   if (comments.reverse() !== songs[expandingId].comments) {
     setComments(songs[expandingId].comments)
   }
@@ -48,6 +49,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
     }
   }
 
+ 
   const handleCopyAndEdit = (e) => {
     setSavedSong(songs[expandingId].notes, songs[expandingId].tempo)
     if (e.target.innerHTML === 'Edit Song') {
@@ -94,7 +96,7 @@ export default function Expanding({ songs, expandingId, playSong, id, setUpdate,
       console.log(err.response.data)
     }
   }
-
+  
 
   return (
     <div className="expanded-view">

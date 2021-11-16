@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useHistory } from 'react-router'
 import { createSong } from '../lib/api'
 
-export default function SaveSong({ bpm, allNotes, handleSave }) {
+export default function SaveSong({ bpm, allNotes, handleSave, selectedSynth }) {
   const [name, setName] = useState('')
   const [error, setError] = useState('')
   const history = useHistory()
@@ -15,6 +15,7 @@ export default function SaveSong({ bpm, allNotes, handleSave }) {
       name: name,
       tempo: bpm,
       notes: allNotes,
+      synth: selectedSynth,
     }
     try {
       await createSong(songToSubmit)

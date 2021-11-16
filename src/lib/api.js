@@ -51,3 +51,7 @@ export function addCommentToSong(formdata, id) {
 export function deleteCommentInSong(id, commentId) {
   return axios.delete(`${baseUrl}/songs/${id}/comments/${commentId}/`, headers())
 }
+
+export function updateCommentInSong(id, commentId) {
+  return axios.put(`${baseUrl}/songs/${id}/comments/${commentId}/`, headers())
+}
